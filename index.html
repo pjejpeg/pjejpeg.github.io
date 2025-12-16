@@ -21,7 +21,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            cursor: none; /* HIDE DEFAULT CURSOR */
+            cursor: none; /* Hide default cursor */
         }
 
         /* 2. CUSTOM CURSOR (2x2 Grid) */
@@ -29,15 +29,14 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 40px;
-            height: 40px;
+            width: 50px; /* Size of the whole cursor block */
+            height: 50px;
             pointer-events: none; /* Lets clicks pass through */
             z-index: 9999;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
             transform: translate(-50%, -50%); /* Center on mouse */
-            mix-blend-mode: difference; /* Optional: Cool effect over black lines */
         }
 
         .cursor-cell {
@@ -46,16 +45,18 @@
             align-items: center;
             font-size: 10px;
             font-weight: 700;
-            border-radius: 50%; /* Make them circles */
-            width: 100%;
-            height: 100%;
+            border-radius: 50%; /* Circles */
         }
 
-        /* COLOR LOGIC: TR & BL are Black */
-        .cell-1 { background: white; color: black; } /* TL */
-        .cell-2 { background: black; color: white; } /* TR */
-        .cell-3 { background: black; color: white; } /* BL */
-        .cell-4 { background: white; color: black; } /* BR */
+        /* COLOR LOGIC */
+        /* Top-Left: White bg, Black text */
+        .cell-1 { background: white; color: black; border: 1px solid black; } 
+        /* Top-Right: Black bg, White text */
+        .cell-2 { background: black; color: white; } 
+        /* Bottom-Left: Black bg, White text */
+        .cell-3 { background: black; color: white; } 
+        /* Bottom-Right: White bg, Black text */
+        .cell-4 { background: white; color: black; border: 1px solid black; } 
 
         /* 3. THE CONTAINER */
         .molecule-container {
@@ -73,8 +74,10 @@
             display: block;
             overflow: visible;
             transform-origin: center;
+            
+            /* Animation Config */
+            opacity: 0; 
             transform: scaleY(0);
-            opacity: 0;
             animation: unfoldLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
@@ -84,9 +87,10 @@
             100% { transform: scaleY(1); opacity: 1; }
         }
 
+        /* Name Animation */
         @keyframes fadeName {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            0% { opacity: 0; transform: translate(-80%, -60px); }
+            100% { opacity: 1; transform: translate(-80%, -70px); }
         }
 
         /* LINE STYLE */
@@ -102,12 +106,12 @@
         /* 5. INTERACTION POINTS */
         .carbon-point {
             position: absolute;
-            width: 40px; 
-            height: 40px;
+            width: 50px; 
+            height: 50px;
             transform: translate(-50%, -50%);
             z-index: 20;
             border-radius: 50%;
-            cursor: none; /* Ensure custom cursor stays */
+            cursor: none; /* Keep custom cursor */
         }
 
         /* 6. LABELS (Text) */
@@ -122,7 +126,7 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
             z-index: 10;
             pointer-events: auto;
-            cursor: none; 
+            cursor: none;
         }
 
         .label a {
@@ -144,12 +148,13 @@
             transform: translate(-50%, 20px); 
         }
 
-        /* 2. PROJECTS (Top Left) - UP */
+        /* 2. PROJECTS (Top Left) - MOVED UP */
         #c2 { left: 35%; top: 10%; }
+        
         #label-projects { 
             left: 35%; 
             top: 10%; 
-            transform: translate(-50%, -70px); 
+            transform: translate(-50%, -70px); /* Pushed Up */
         }
 
         #c2:hover ~ #label-projects, #label-projects:hover { 
@@ -166,33 +171,89 @@
             transform: translate(-50%, 20px); 
         }
 
-        /* 4. NAME (Top Right) - ALIGNED UP WITH PROJECTS */
+        /* 4. NAME (Top Right) - ALIGNED & ANIMATED */
         #c4 { left: 95%; top: 10%; }
         
         #label-name {
             left: 95%; 
             top: 10%;
-            /* Animation Restored */
+            
+            /* START STATE */
             opacity: 0; 
             font-weight: 600; 
             font-size: 1.7rem;
             
-            /* ALIGNMENT FIX: Moved from right side (translate 15px) to TOP (translate -70px) */
-            /* This matches the 'Projects' height exactly */
-            transform: translate(-50%, -70px); 
+            /* ALIGNMENT:
+               -70px Y: Matches "Projects" height exactly.
+               -80% X: Anchors text to the left of the dot so it fits on screen. 
+            */
+            transform: translate(-80%, -70px); 
             
+            /* Animation */
             animation: fadeName 1s ease forwards;
             animation-delay: 1.2s;
         }
         
-        /* Hover effect for name link */
         #label-name a:hover {
             opacity: 0.6;
         }
 
         /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
-            body { cursor: auto; } /* Restore normal cursor on touch devices */
+            body { cursor: auto; }
             #custom-cursor { display: none; }
             
-            .molecule-container { width: 80
+            .molecule-container { width: 80vw; height: 40vw; }
+            .label { opacity: 1; font-size: 0.7rem; }
+            
+            #label-about { transform: translate(-50%, 20px); }
+            #label-projects { transform: translate(-50%, -30px); }
+            #label-materials { transform: translate(-50%, 20px); }
+            
+            #label-name { 
+                transform: translate(-100%, -30px); /* Align right on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor">
+        <div class="cursor-cell cell-1">가</div> <div class="cursor-cell cell-2">A</div>  <div class="cursor-cell cell-3">あ</div> <div class="cursor-cell cell-4">क</div>  </div>
+
+    <div class="molecule-container">
+        <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+            <polyline class="bond-line" points="5,45 35,5 65,45 95,5" />
+        </svg>
+
+        <a href="about.html" class="carbon-point" id="c1"></a>
+        <div class="label" id="label-about">
+            <a href="about.html">About</a>
+        </div>
+
+        <a href="projects.html" class="carbon-point" id="c2"></a>
+        <div class="label" id="label-projects">
+            <a href="projects.html">Projects</a>
+        </div>
+
+        <a href="materials.html" class="carbon-point" id="c3"></a>
+        <div class="label" id="label-materials">
+            <a href="materials.html">Materials</a>
+        </div>
+
+        <a href="index.html" class="carbon-point" id="c4"></a>
+        <div class="label" id="label-name">
+            <a href="index.html">Jung Eun Park</a>
+        </div>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+    </script>
+
+</body>
+</html>
