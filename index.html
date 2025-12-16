@@ -27,7 +27,7 @@
         .molecule-container {
             position: relative;
             width: 40vw; 
-            height: 20vw;
+            height: 20vw; /* Aspect ratio matches SVG 100x50 (2:1) */
             max-width: 600px;
             max-height: 300px;
         }
@@ -45,6 +45,7 @@
             animation: unfoldLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+        /* Animation for the Line */
         @keyframes unfoldLine {
             0% { 
                 transform: scaleY(0); 
@@ -59,14 +60,20 @@
             }
         }
 
+        /* CRITICAL FIX: Missing Animation for the Name */
+        @keyframes fadeName {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
         /* LINE STYLE */
         .bond-line {
             fill: none;
             stroke: #000000;
-            stroke-width: 1.5; /* THINNER STROKE */
+            stroke-width: 1.5;
             stroke-linecap: square;
             stroke-linejoin: miter;
-            stroke-miterlimit: 20; /* Ensures super sharp corners */
+            stroke-miterlimit: 20;
         }
 
         /* 4. INTERACTION POINTS */
@@ -78,6 +85,7 @@
             cursor: pointer;
             z-index: 20;
             border-radius: 50%;
+            /* background: rgba(255,0,0,0.2); Uncomment to debug positions */
         }
 
         /* 5. LABELS (Text) */
@@ -101,9 +109,9 @@
             padding: 5px;
         }
 
-        /* --- HOVER LOGIC --- */
+        /* --- HOVER LOGIC & POSITIONS --- */
 
-        /* 1. ABOUT */
+        /* 1. ABOUT (Bottom Left: 5, 45) */
         #c1 { left: 2%; top: 90%; }
         #label-about { left: 2%; top: 90%; transform: translate(-50%, 30px); }
 
@@ -112,16 +120,16 @@
             transform: translate(-50%, 20px); 
         }
 
-        /* 2. PROJECTS */
-        #c2 { left: 35%; top: -20%; }
-        #label-projects { left: 35%; top: 10%; transform: translate(-50%, -30px); }
+        /* 2. PROJECTS (Top Left: 35, 5) */
+        #c2 { left: 35%; top: 10%; }
+        #label-projects { left: 35%; top: 10%; transform: translate(-50%, -70px); }
 
         #c2:hover ~ #label-projects, #label-projects:hover { 
             opacity: 1; 
-            transform: translate(-50%, -20px); 
+            transform: translate(-50%, -60px); 
         }
 
-        /* 3. MATERIALS */
+        /* 3. MATERIALS (Bottom Right: 65, 45) */
         #c3 { left: 65%; top: 90%; }
         #label-materials { left: 65%; top: 90%; transform: translate(-50%, 30px); }
 
@@ -130,18 +138,23 @@
             transform: translate(-50%, 20px); 
         }
 
-        /* 4. NAME (Title) */
-        #c4 { left: 95%; top: -20%; }
-        #label-name { left: 65%; top: 90%;}
+        /* 4. NAME (Top Right: 95, 5) */
+        #c4 { left: 95%; top: 10%; }
+        
         #label-name {
             left: 95%; 
             top: 10%;
             opacity: 0; 
             font-weight: 600; 
             font-size: 1.7rem;
-            transform: translate(15px, -50%);
+            transform: translate(15px, -60%);
             animation: fadeName 1s ease forwards;
-            animation-delay: 1s;
+            animation-delay: 1.2s; /* Waits for line to unfold */
+        }
+        
+        /* Hover effect just for the name link */
+        #label-name a:hover {
+            opacity: 0.6;
         }
 
         /* MOBILE ADJUSTMENTS */
