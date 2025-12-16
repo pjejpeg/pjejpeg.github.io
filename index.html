@@ -5,35 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jung Eun Park</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='10,80 35,30 65,80 90,30' fill='none' stroke='black' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='5,80 35,20 65,80 95,20' fill='none' stroke='black' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
 
     <style>
-        /* 1. RESET & BASIC SETUP */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* 1. RESET & LAYOUT */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #fff; /* Pure White Background */
-            color: #000; /* Pure Black Text */
+            background-color: #ffffff; /* Pure White */
+            color: #000000; /* Pure Black */
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow: hidden; /* No scrollbars */
         }
 
-        /* 2. THE CONTAINER */
+        /* 2. THE CONTAINER - RESPONSIVE & LARGE */
         .molecule-container {
             position: relative;
-            width: 600px;
-            height: 300px;
+            width: 80vw; /* Occupies 80% of screen width */
+            max-width: 1100px; /* Cap it on huge screens */
+            aspect-ratio: 2.5 / 1; /* Keeps the zigzag shape wide */
+            /* border: 1px solid red;  <-- UNCOMMENT THIS IF IT'S STILL EMPTY TO DEBUG */
         }
 
-        /* 3. THE SKELETAL FORMULA (SVG) */
+        /* 3. THE GRAPHIC (SVG) */
         svg {
             width: 100%;
             height: 100%;
@@ -42,9 +41,90 @@
 
         .bond-line {
             fill: none;
-            stroke: #000; /* Black Line */
-            stroke-width: 4;
+            stroke: #000000; /* Black Line */
+            stroke-width: 3; /* Thickness relative to viewBox */
             stroke-linecap: round;
             stroke-linejoin: round;
-            /* Subtle shadow for depth, updated to grey */
-            filter: drop-shadow(0 0 5px rgba(0,0,
+        }
+
+        /* 4. INTERACTION POINTS (Invisible circles on corners) */
+        .carbon-point {
+            position: absolute;
+            width: 60px; /* Large hit area */
+            height: 60px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%); /* Centers the point */
+            cursor: pointer;
+            z-index: 10;
+            /* background: rgba(255, 0, 0, 0.2); <-- UNCOMMENT TO SEE WHERE TO CLICK */
+        }
+
+        /* 5. LABELS (Typography) */
+        .label {
+            position: absolute;
+            font-size: 1.5rem; /* Large text */
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* --- HOVER LOGIC --- */
+
+        /* Point 1 (Bottom Left) -> About */
+        #c1:hover ~ #label-about, #c1:focus ~ #label-about { opacity: 1; transform: translateY(15px); }
+        #label-about { left: 5%; top: 85%; transform: translateY(30px); }
+
+        /* Point 2 (Top Left) -> Projects */
+        #c2:hover ~ #label-projects, #c2:focus ~ #label-projects { opacity: 1; transform: translateY(-15px); }
+        #label-projects { left: 35%; top: 15%; transform: translateY(-30px); }
+
+        /* Point 3 (Bottom Right) -> Materials */
+        #c3:hover ~ #label-materials, #c3:focus ~ #label-materials { opacity: 1; transform: translateY(15px); }
+        #label-materials { left: 65%; top: 85%; transform: translateY(30px); }
+
+        /* Point 4 (Top Right) -> NAME (Always Visible) */
+        #label-name {
+            left: 95%; 
+            top: 20%; 
+            opacity: 1; 
+            font-weight: 800; 
+            font-size: 1.8rem;
+            text-align: right;
+            transform: translateX(-100%); /* Align right edge to point */
+        }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 768px) {
+            .molecule-container { width: 95vw; }
+            .label { font-size: 1rem; opacity: 1; } /* Always show labels on phone */
+            #label-about { top: 90%; }
+            #label-materials { top: 90%; }
+            #label-projects { top: 10%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="molecule-container">
+        <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+            <polyline class="bond-line" points="5,45 35,5 65,45 95,5" />
+        </svg>
+
+        <a href="about.html" class="carbon-point" id="c1" style="left: 5%; top: 90%;"></a>
+        <div class="label" id="label-about">About</div>
+
+        <a href="projects.html" class="carbon-point" id="c2" style="left: 35%; top: 10%;"></a>
+        <div class="label" id="label-projects">Projects</div>
+
+        <a href="materials.html" class="carbon-point" id="c3" style="left: 65%; top: 90%;"></a>
+        <div class="label" id="label-materials">Materials</div>
+
+        <div class="carbon-point" id="c4" style="left: 95%; top: 10%; cursor: default;"></div>
+        <div class="label" id="label-name">Jung Eun Park</div>
+    </div>
+
+</body>
+</html>
