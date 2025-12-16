@@ -29,8 +29,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 50px; /* Size of the whole cursor block */
-            height: 50px;
+            width: 30px; /* Size of the whole cursor block */
+            height: 30px;
             pointer-events: none; /* Lets clicks pass through */
             z-index: 9999;
             display: grid;
@@ -45,7 +45,7 @@
             align-items: center;
             font-size: 6px;
             font-weight: 700;
-            border-radius: 30%; /* Circles */
+            border-radius: 50%;
         }
 
         /* COLOR LOGIC */
@@ -187,7 +187,7 @@
                -70px Y: Matches "Projects" height exactly.
                -80% X: Anchors text to the left of the dot so it fits on screen. 
             */
-            transform: translate(-120%, -70px); 
+            transform: translate(-80%, -70px); 
             
             /* Animation */
             animation: fadeName 1s ease forwards;
