@@ -26,38 +26,35 @@
         /* 2. THE CONTAINER */
         .molecule-container {
             position: relative;
-            /* REDUCED SIZE: 40vw (approx 2/3 of previous 60vw) */
             width: 40vw; 
-            height: 20vw; /* Locked 2:1 Ratio */
+            height: 20vw;
             max-width: 600px;
             max-height: 300px;
         }
 
-        /* 3. THE GRAPHIC (SVG) & OPENING ANIMATION */
+        /* 3. OPENING ANIMATION */
         svg {
             width: 100%;
             height: 100%;
             display: block;
             overflow: visible;
             
-            /* ANIMATION SETUP */
-            transform-origin: center; /* Stretch from middle */
-            transform: scaleY(0); /* Start flat/invisible */
+            transform-origin: center;
+            transform: scaleY(0);
             opacity: 0;
             animation: unfoldLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* THE ANIMATION KEYFRAMES */
         @keyframes unfoldLine {
             0% { 
                 transform: scaleY(0); 
                 opacity: 0;
             }
             10% {
-                opacity: 1; /* Line becomes visible as a flat line quickly */
+                opacity: 1;
             }
             100% { 
-                transform: scaleY(1); /* Fully stretched */
+                transform: scaleY(1);
                 opacity: 1;
             }
         }
@@ -72,7 +69,7 @@
             stroke-miterlimit: 20; /* Ensures super sharp corners */
         }
 
-        /* 4. INTERACTION POINTS (Dots) */
+        /* 4. INTERACTION POINTS */
         .carbon-point {
             position: absolute;
             width: 40px; 
@@ -86,7 +83,7 @@
         /* 5. LABELS (Text) */
         .label {
             position: absolute;
-            font-size: 0.9rem; /* Slightly smaller to match new scale */
+            font-size: 1.2rem; /* Slightly smaller to match new scale */
             font-weight: 400; /* Thinner font to match thinner line */
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -116,7 +113,7 @@
         }
 
         /* 2. PROJECTS */
-        #c2 { left: 35%; top: 10%; }
+        #c2 { left: 35%; top: -5%; }
         #label-projects { left: 35%; top: 10%; transform: translate(-50%, -30px); }
 
         #c2:hover ~ #label-projects, #label-projects:hover { 
@@ -134,19 +131,17 @@
         }
 
         /* 4. NAME (Title) */
-        /* Fades in AFTER the line unfolds */
-        #c4 { left: 95%; top: 10%; }
+        #c4 { left: 95%; top: -5%; }
         
         #label-name {
             left: 95%; 
             top: 10%;
-            /* Animation for Name */
             opacity: 0; 
             font-weight: 600; 
-            font-size: 1rem;
+            font-size: 2rem;
             transform: translate(15px, -50%);
             animation: fadeName 1s ease forwards;
-            animation-delay: 1s; /* Wait for line to finish stretching */
+            animation-delay: 1s;
         }
         
         @keyframes fadeName {
