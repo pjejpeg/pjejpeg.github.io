@@ -23,12 +23,12 @@
             overflow: hidden;
         }
 
-        /* 2. THE CONTAINER - MATHEMATICALLY LOCKED */
+        /* 2. THE CONTAINER - LOCKED RATIO */
         .molecule-container {
             position: relative;
-            width: 60vw; /* 2/3 Scale */
+            width: 55vw; /* 2/3 Scale */
             max-width: 900px; 
-            /* CRITICAL FIX: Match the SVG viewBox (100 width / 50 height = 2) */
+            /* This locks the shape so text never drifts */
             aspect-ratio: 2 / 1; 
         }
 
@@ -36,7 +36,7 @@
         svg {
             width: 100%;
             height: 100%;
-            display: block; /* Removes phantom scrollbars */
+            display: block;
             overflow: visible;
         }
 
@@ -44,7 +44,7 @@
             fill: none;
             stroke: #000000;
             stroke-width: 3;
-            /* Sharp Edges */
+            /* Sharp Edges from previous version */
             stroke-linecap: square; 
             stroke-linejoin: miter; 
             stroke-miterlimit: 10;
@@ -53,13 +53,12 @@
         /* 4. INTERACTION POINTS */
         .carbon-point {
             position: absolute;
-            width: 50px; /* Clickable Area */
+            width: 50px; 
             height: 50px;
-            transform: translate(-50%, -50%); /* Centers exactly on the coordinate */
+            transform: translate(-50%, -50%);
             cursor: pointer;
             z-index: 10;
             border-radius: 50%;
-            /* background: rgba(255,0,0,0.2); Uncomment to debug positions */
         }
 
         /* 5. LABELS */
@@ -70,87 +69,61 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             white-space: nowrap;
-            opacity: 0; /* Invisible by default */
+            opacity: 0; 
             transition: opacity 0.3s ease, transform 0.3s ease;
-            pointer-events: none;
+            pointer-events: none; /* Allows clicking through to elements below if needed */
         }
 
-        /* --- POSITIONING LOGIC --- */
-        /* Note: Percentages match SVG coordinates exactly:
-           Bottom: y=45 is 90% (45/50)
-           Top: y=5 is 10% (5/50)
-        */
+        /* Links inside labels should be clickable */
+        .label a {
+            text-decoration: none;
+            color: #000000;
+            pointer-events: auto; /* Re-enable clicks for the name link */
+        }
 
-        /* 1. ABOUT (Bottom Left: 5, 45) */
-        #c1, #label-about { left: 5%; top: 90%; }
+        /* --- POSITIONING --- */
         
+        /* 1. ABOUT (Bottom Left: 5, 45) */
+        #c1 { left: 5%; top: 90%; }
+        #label-about { left: 5%; top: 90%; transform: translate(-50%, 40px); }
+
         #c1:hover ~ #label-about, #c1:focus ~ #label-about { 
             opacity: 1; 
-            transform: translate(-50%, 25px); /* Move Down */
-        }
-        #label-about { 
-            transform: translate(-50%, 40px); /* Initial Offset */
+            transform: translate(-50%, 25px); 
         }
 
         /* 2. PROJECTS (Top Left: 35, 5) */
-        #c2, #label-projects { left: 35%; top: 10%; }
+        #c2 { left: 35%; top: 10%; }
+        #label-projects { left: 35%; top: 10%; transform: translate(-50%, -40px); }
 
         #c2:hover ~ #label-projects, #c2:focus ~ #label-projects { 
             opacity: 1; 
-            transform: translate(-50%, -25px); /* Move Up */
-        }
-        #label-projects { 
-            transform: translate(-50%, -40px); 
+            transform: translate(-50%, -25px); 
         }
 
         /* 3. MATERIALS (Bottom Right: 65, 45) */
-        #c3, #label-materials { left: 65%; top: 90%; }
+        #c3 { left: 65%; top: 90%; }
+        #label-materials { left: 65%; top: 90%; transform: translate(-50%, 40px); }
 
         #c3:hover ~ #label-materials, #c3:focus ~ #label-materials { 
             opacity: 1; 
-            transform: translate(-50%, 25px); /* Move Down */
-        }
-        #label-materials { 
-            transform: translate(-50%, 40px); 
+            transform: translate(-50%, 25px); 
         }
 
-        /* 4. NAME (Top Right: 95, 5) - Always Visible */
-        #c4 { left: 95%; top: 10%; cursor: default; }
+        /* 4. NAME (Top Right: 95, 5) - LINKED */
+        #c4 { left: 95%; top: 10%; }
         
         #label-name {
             left: 95%; 
             top: 10%;
-            opacity: 1; 
+            opacity: 1; /* Always visible */
             font-weight: 700; 
             font-size: 1.1rem;
-            /* Anchored to the right of the point */
-            transform: translate(15px, -50%); 
+            transform: translate(15px, -50%); /* Positioned to the right */
+            pointer-events: auto; /* Make sure the link is clickable */
         }
 
-        /* MOBILE ADJUSTMENTS */
-        @media (max-width: 768px) {
-            .molecule-container { width: 90vw; }
-            .label { opacity: 1; font-size: 0.8rem; } /* Always show on mobile */
-            /* Adjust static positions for mobile */
-            #label-about { transform: translate(-50%, 25px); }
-            #label-projects { transform: translate(-50%, -25px); }
-            #label-materials { transform: translate(-50%, 25px); }
-            /* Name moves below point on mobile to prevent cutoff */
-            #label-name { 
-                transform: translate(0, -35px); 
-                right: 0; left: auto; text-align: right;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="molecule-container">
-        <svg viewBox="0 0 100 50" preserveAspectRatio="none">
-            <polyline class="bond-line" points="5,45 35,5 65,45 95,5" />
-        </svg>
-
-        <a href="about.html" class="carbon-point" id="c1"></a>
-        <div class="label" id="label-about">About</div>
-
-        <a href="projects.html" class="
+        /* Hover effect for the Name Link */
+        #label-name a:hover {
+            opacity: 0.6;
+            transition: opacity 0.2s
