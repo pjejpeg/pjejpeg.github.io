@@ -12,8 +12,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #ffffff; /* Pure White */
+            color: #000000; /* Pure Black */
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             height: 100vh;
             width: 100vw;
@@ -23,13 +23,17 @@
             overflow: hidden;
         }
 
-        /* 2. THE CONTAINER - LOCKED RATIO */
+        /* 2. THE CONTAINER */
         .molecule-container {
             position: relative;
-            width: 55vw; /* 2/3 Scale */
-            max-width: 900px; 
-            /* This locks the shape so text never drifts */
-            aspect-ratio: 2 / 1; 
+            /* WIDTH and HEIGHT explicitly set to ensure visibility */
+            width: 60vw; 
+            height: 30vw; /* Exactly half of width = 2:1 Ratio */
+            max-width: 900px;
+            max-height: 450px;
+            
+            /* Debugging: If screen is still blank, uncomment the next line to see the box */
+            /* border: 1px solid red; */
         }
 
         /* 3. THE GRAPHIC (SVG) */
@@ -37,16 +41,15 @@
             width: 100%;
             height: 100%;
             display: block;
-            overflow: visible;
+            overflow: visible; /* Prevents sharp corners from getting clipped */
         }
 
         .bond-line {
             fill: none;
-            stroke: #000000;
+            stroke: #000000; /* PURE BLACK */
             stroke-width: 3;
-            /* Sharp Edges from previous version */
-            stroke-linecap: square; 
-            stroke-linejoin: miter; 
+            stroke-linecap: square; /* Sharp ends */
+            stroke-linejoin: miter; /* Sharp corners */
             stroke-miterlimit: 10;
         }
 
@@ -59,6 +62,7 @@
             cursor: pointer;
             z-index: 10;
             border-radius: 50%;
+            /* background: rgba(0,0,0,0.1); Uncomment to see clickable zones */
         }
 
         /* 5. LABELS */
@@ -71,19 +75,19 @@
             white-space: nowrap;
             opacity: 0; 
             transition: opacity 0.3s ease, transform 0.3s ease;
-            pointer-events: none; /* Allows clicking through to elements below if needed */
+            pointer-events: none;
         }
 
-        /* Links inside labels should be clickable */
+        /* Links inside labels */
         .label a {
             text-decoration: none;
             color: #000000;
-            pointer-events: auto; /* Re-enable clicks for the name link */
+            pointer-events: auto;
         }
 
         /* --- POSITIONING --- */
         
-        /* 1. ABOUT (Bottom Left: 5, 45) */
+        /* 1. ABOUT (Bottom Left: 5% x, 90% y) */
         #c1 { left: 5%; top: 90%; }
         #label-about { left: 5%; top: 90%; transform: translate(-50%, 40px); }
 
@@ -92,7 +96,7 @@
             transform: translate(-50%, 25px); 
         }
 
-        /* 2. PROJECTS (Top Left: 35, 5) */
+        /* 2. PROJECTS (Top Left: 35% x, 10% y) */
         #c2 { left: 35%; top: 10%; }
         #label-projects { left: 35%; top: 10%; transform: translate(-50%, -40px); }
 
@@ -101,7 +105,7 @@
             transform: translate(-50%, -25px); 
         }
 
-        /* 3. MATERIALS (Bottom Right: 65, 45) */
+        /* 3. MATERIALS (Bottom Right: 65% x, 90% y) */
         #c3 { left: 65%; top: 90%; }
         #label-materials { left: 65%; top: 90%; transform: translate(-50%, 40px); }
 
@@ -110,7 +114,7 @@
             transform: translate(-50%, 25px); 
         }
 
-        /* 4. NAME (Top Right: 95, 5) - LINKED */
+        /* 4. NAME (Top Right: 95% x, 10% y) - LINKED */
         #c4 { left: 95%; top: 10%; }
         
         #label-name {
@@ -119,11 +123,51 @@
             opacity: 1; /* Always visible */
             font-weight: 700; 
             font-size: 1.1rem;
-            transform: translate(15px, -50%); /* Positioned to the right */
-            pointer-events: auto; /* Make sure the link is clickable */
+            transform: translate(15px, -50%); /* To the right */
+            pointer-events: auto;
         }
 
-        /* Hover effect for the Name Link */
         #label-name a:hover {
             opacity: 0.6;
-            transition: opacity 0.2s
+        }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 768px) {
+            .molecule-container { width: 90vw; height: 45vw; }
+            .label { opacity: 1; font-size: 0.8rem; }
+            
+            #label-about { transform: translate(-50%, 25px); }
+            #label-projects { transform: translate(-50%, -25px); }
+            #label-materials { transform: translate(-50%, 25px); }
+            
+            #label-name { 
+                transform: translate(0, -35px); 
+                right: 0; left: auto; text-align: right;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="molecule-container">
+        <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+            <polyline class="bond-line" points="5,45 35,5 65,45 95,5" />
+        </svg>
+
+        <a href="about.html" class="carbon-point" id="c1"></a>
+        <div class="label" id="label-about">About</div>
+
+        <a href="projects.html" class="carbon-point" id="c2"></a>
+        <div class="label" id="label-projects">Projects</div>
+
+        <a href="materials.html" class="carbon-point" id="c3"></a>
+        <div class="label" id="label-materials">Materials</div>
+
+        <a href="index.html" class="carbon-point" id="c4"></a>
+        <div class="label" id="label-name">
+            <a href="index.html">Jung Eun Park</a>
+        </div>
+    </div>
+
+</body>
+</html>
