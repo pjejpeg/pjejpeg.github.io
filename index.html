@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jung Eun Park</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='10,80 35,30 65,80 90,30' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='10,80 35,30 65,80 90,30' fill='none' stroke='black' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>">
 
     <style>
         /* 1. RESET & BASIC SETUP */
@@ -16,14 +16,14 @@
         }
 
         body {
-            background-color: #000; /* Deep Black Background */
-            color: #fff;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Clean, Swiss Font */
+            background-color: #fff; /* Pure White Background */
+            color: #000; /* Pure Black Text */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* No scrolling on landing */
+            overflow: hidden;
         }
 
         /* 2. THE CONTAINER */
@@ -31,108 +31,20 @@
             position: relative;
             width: 600px;
             height: 300px;
-            /* Border for debugging, remove later: border: 1px solid #333; */
         }
 
         /* 3. THE SKELETAL FORMULA (SVG) */
         svg {
             width: 100%;
             height: 100%;
-            overflow: visible; /* Allows text to hang outside if needed */
+            overflow: visible;
         }
 
         .bond-line {
             fill: none;
-            stroke: #fff;
-            stroke-width: 4; /* Thickness of the molecule */
+            stroke: #000; /* Black Line */
+            stroke-width: 4;
             stroke-linecap: round;
             stroke-linejoin: round;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); /* Subtle glow */
-        }
-
-        /* 4. INTERACTION POINTS (The Carbons) */
-        /* These are invisible triggers placed over the vertices */
-        .carbon-point {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            transform: translate(-50%, -50%); /* Center perfectly on coordinate */
-            cursor: pointer;
-            z-index: 10;
-            /* background: rgba(255,0,0,0.3); Use this to debug positions */
-        }
-
-        /* 5. THE LABELS (Text) */
-        .label {
-            position: absolute;
-            font-size: 16px;
-            letter-spacing: 1px;
-            font-weight: 300;
-            white-space: nowrap;
-            opacity: 0; /* Hidden by default */
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            pointer-events: none; /* Let clicks pass through to the link */
-            text-transform: uppercase;
-        }
-
-        /* Positioning the Labels relative to the Carbon points */
-        /* Carbon 1 (Left) - Text appears below */
-        #c1:hover ~ #label-about, #c1:focus ~ #label-about {
-            opacity: 1;
-            transform: translateY(10px);
-        }
-        #label-about {
-            top: 85%; /* Coordinate matching SVG point */
-            left: 10%;
-            transform: translateY(20px);
-        }
-
-        /* Carbon 2 (Top Left) - Text appears above */
-        #c2:hover ~ #label-projects, #c2:focus ~ #label-projects {
-            opacity: 1;
-            transform: translateY(-10px);
-        }
-        #label-projects {
-            top: 25%;
-            left: 35%;
-            transform: translateY(-20px);
-        }
-
-        /* Carbon 3 (Bottom Right) - Text appears below */
-        #c3:hover ~ #label-materials, #c3:focus ~ #label-materials {
-            opacity: 1;
-            transform: translateY(10px);
-        }
-        #label-materials {
-            top: 85%;
-            left: 65%;
-            transform: translateY(20px);
-        }
-
-        /* Carbon 4 (Top Right) - ALWAYS VISIBLE */
-        #label-name {
-            top: 25%;
-            left: 90%;
-            opacity: 1; /* Always on */
-            font-weight: 700; /* Bold for title */
-            font-size: 18px;
-        }
-
-        /* Responsive Design for Mobile */
-        @media (max-width: 768px) {
-            .molecule-container {
-                width: 90%;
-                height: auto;
-                aspect-ratio: 2/1;
-            }
-            .label {
-                font-size: 12px;
-            }
-            /* On mobile, maybe keep labels visible or rely on tap */
-        }
-    </style>
-</head>
-<body>
-
-    <div class="molecule-container">
+            /* Subtle shadow for depth, updated to grey */
+            filter: drop-shadow(0 0 5px rgba(0,0,
