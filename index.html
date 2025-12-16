@@ -83,8 +83,8 @@
         /* 5. LABELS (Text) */
         .label {
             position: absolute;
-            font-size: 1.2rem; /* Slightly smaller to match new scale */
-            font-weight: 400; /* Thinner font to match thinner line */
+            font-size: 1.5rem;
+            font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 2px;
             white-space: nowrap;
@@ -104,8 +104,8 @@
         /* --- HOVER LOGIC --- */
 
         /* 1. ABOUT */
-        #c1 { left: 5%; top: 90%; }
-        #label-about { left: 5%; top: 90%; transform: translate(-50%, 30px); }
+        #c1 { left: 2%; top: 90%; }
+        #label-about { left: 2%; top: 90%; transform: translate(-50%, 30px); }
 
         #c1:hover ~ #label-about, #label-about:hover { 
             opacity: 1; 
@@ -113,7 +113,7 @@
         }
 
         /* 2. PROJECTS */
-        #c2 { left: 35%; top: -5%; }
+        #c2 { left: 35%; top: -20%; }
         #label-projects { left: 35%; top: 10%; transform: translate(-50%, -30px); }
 
         #c2:hover ~ #label-projects, #label-projects:hover { 
@@ -131,14 +131,14 @@
         }
 
         /* 4. NAME (Title) */
-        #c4 { left: 95%; top: -5%; }
+        #c4 { left: 95%; top: -20%; }
         
         #label-name {
             left: 95%; 
             top: 10%;
             opacity: 0; 
             font-weight: 600; 
-            font-size: 2rem;
+            font-size: 1.7rem;
             transform: translate(15px, -50%);
             animation: fadeName 1s ease forwards;
             animation-delay: 1s;
