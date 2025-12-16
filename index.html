@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jung Eun Park</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='5,80 35,20 65,80 95,20' fill='none' stroke='black' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='5,80 35,20 65,80 95,20' fill='none' stroke='black' stroke-width='8' stroke-linecap='square' stroke-linejoin='miter'/></svg>">
 
     <style>
         /* 1. RESET & LAYOUT */
@@ -23,98 +23,123 @@
             overflow: hidden;
         }
 
-        /* 2. THE CONTAINER - Reduced to ~2/3 size (55vw) */
+        /* 2. THE CONTAINER - MATHEMATICALLY LOCKED */
         .molecule-container {
             position: relative;
-            width: 55vw; /* Smaller size */
-            max-width: 800px; 
-            aspect-ratio: 2.5 / 1;
+            width: 60vw; /* 2/3 Scale */
+            max-width: 900px; 
+            /* CRITICAL FIX: Match the SVG viewBox (100 width / 50 height = 2) */
+            aspect-ratio: 2 / 1; 
         }
 
         /* 3. THE GRAPHIC (SVG) */
         svg {
             width: 100%;
             height: 100%;
+            display: block; /* Removes phantom scrollbars */
             overflow: visible;
         }
 
         .bond-line {
             fill: none;
             stroke: #000000;
-            stroke-width: 2;
-            stroke-linecap: square;
-            stroke-linejoin: miter;
+            stroke-width: 3;
+            /* Sharp Edges */
+            stroke-linecap: square; 
+            stroke-linejoin: miter; 
+            stroke-miterlimit: 10;
         }
 
         /* 4. INTERACTION POINTS */
         .carbon-point {
             position: absolute;
-            width: 40px; 
-            height: 40px;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
+            width: 50px; /* Clickable Area */
+            height: 50px;
+            transform: translate(-50%, -50%); /* Centers exactly on the coordinate */
             cursor: pointer;
             z-index: 10;
+            border-radius: 50%;
+            /* background: rgba(255,0,0,0.2); Uncomment to debug positions */
         }
 
-        /* 5. LABELS (Typography) */
+        /* 5. LABELS */
         .label {
             position: absolute;
-            font-size: 1rem; /* Smaller font */
+            font-size: 1rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 2px;
-            white-space: nowrap; /* Forces one line */
-            opacity: 0;
+            white-space: nowrap;
+            opacity: 0; /* Invisible by default */
             transition: opacity 0.3s ease, transform 0.3s ease;
             pointer-events: none;
         }
 
-        /* --- HOVER LOGIC & SPACING --- */
+        /* --- POSITIONING LOGIC --- */
+        /* Note: Percentages match SVG coordinates exactly:
+           Bottom: y=45 is 90% (45/50)
+           Top: y=5 is 10% (5/50)
+        */
 
-        /* Point 1 (Bottom Left) -> About */
-        /* Text pushed further down (translateY 30px -> 40px) */
-        #c1:hover ~ #label-about, #c1:focus ~ #label-about { opacity: 1; transform: translateX(-50%) translateY(10px); }
+        /* 1. ABOUT (Bottom Left: 5, 45) */
+        #c1, #label-about { left: 5%; top: 90%; }
+        
+        #c1:hover ~ #label-about, #c1:focus ~ #label-about { 
+            opacity: 1; 
+            transform: translate(-50%, 25px); /* Move Down */
+        }
         #label-about { 
-            left: 5%; 
-            top: 90%; /* Start below the container */
-            transform: translateX(-50%) translateY(25px); /* Gap from point */
+            transform: translate(-50%, 40px); /* Initial Offset */
         }
 
-        /* Point 2 (Top Left) -> Projects */
-        /* Text pushed further up */
-        #c2:hover ~ #label-projects, #c2:focus ~ #label-projects { opacity: 1; transform: translateX(-50%) translateY(-10px); }
+        /* 2. PROJECTS (Top Left: 35, 5) */
+        #c2, #label-projects { left: 35%; top: 10%; }
+
+        #c2:hover ~ #label-projects, #c2:focus ~ #label-projects { 
+            opacity: 1; 
+            transform: translate(-50%, -25px); /* Move Up */
+        }
         #label-projects { 
-            left: 35%; 
-            top: -5%; /* Start above the container */
-            transform: translateX(-50%) translateY(-25px); 
+            transform: translate(-50%, -40px); 
         }
 
-        /* Point 3 (Bottom Right) -> Materials */
-        /* Text pushed further down */
-        #c3:hover ~ #label-materials, #c3:focus ~ #label-materials { opacity: 1; transform: translateX(-50%) translateY(10px); }
+        /* 3. MATERIALS (Bottom Right: 65, 45) */
+        #c3, #label-materials { left: 65%; top: 90%; }
+
+        #c3:hover ~ #label-materials, #c3:focus ~ #label-materials { 
+            opacity: 1; 
+            transform: translate(-50%, 25px); /* Move Down */
+        }
         #label-materials { 
-            left: 65%; 
-            top: 90%; 
-            transform: translateX(-50%) translateY(25px);
+            transform: translate(-50%, 40px); 
         }
 
-        /* Point 4 (Top Right) -> NAME (Always Visible) */
-        /* Pushed to the right, slightly away */
+        /* 4. NAME (Top Right: 95, 5) - Always Visible */
+        #c4 { left: 95%; top: 10%; cursor: default; }
+        
         #label-name {
             left: 95%; 
-            top: -5%; 
+            top: 10%;
             opacity: 1; 
             font-weight: 700; 
-            font-size: 1.1rem; /* Name slightly larger than menu */
-            transform: translate(20px, -50%); /* 20px gap to the right */
+            font-size: 1.1rem;
+            /* Anchored to the right of the point */
+            transform: translate(15px, -50%); 
         }
 
         /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
             .molecule-container { width: 90vw; }
-            .label { font-size: 0.9rem; opacity: 1; }
-            #label-name { transform: translate(0, -40px); left: auto; right: 0; }
+            .label { opacity: 1; font-size: 0.8rem; } /* Always show on mobile */
+            /* Adjust static positions for mobile */
+            #label-about { transform: translate(-50%, 25px); }
+            #label-projects { transform: translate(-50%, -25px); }
+            #label-materials { transform: translate(-50%, 25px); }
+            /* Name moves below point on mobile to prevent cutoff */
+            #label-name { 
+                transform: translate(0, -35px); 
+                right: 0; left: auto; text-align: right;
+            }
         }
     </style>
 </head>
@@ -125,18 +150,7 @@
             <polyline class="bond-line" points="5,45 35,5 65,45 95,5" />
         </svg>
 
-        <a href="about.html" class="carbon-point" id="c1" style="left: 5%; top: 90%;"></a>
+        <a href="about.html" class="carbon-point" id="c1"></a>
         <div class="label" id="label-about">About</div>
 
-        <a href="projects.html" class="carbon-point" id="c2" style="left: 35%; top: 10%;"></a>
-        <div class="label" id="label-projects">Projects</div>
-
-        <a href="materials.html" class="carbon-point" id="c3" style="left: 65%; top: 90%;"></a>
-        <div class="label" id="label-materials">Materials</div>
-
-        <div class="carbon-point" id="c4" style="left: 95%; top: 10%; cursor: default;"></div>
-        <div class="label" id="label-name">Jung Eun Park</div>
-    </div>
-
-</body>
-</html>
+        <a href="projects.html" class="
