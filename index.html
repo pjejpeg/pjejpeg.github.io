@@ -21,46 +21,69 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            cursor: none; /* HIDE DEFAULT CURSOR */
         }
 
-        /* 2. THE CONTAINER */
+        /* 2. CUSTOM CURSOR (2x2 Grid) */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            pointer-events: none; /* Lets clicks pass through */
+            z-index: 9999;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            transform: translate(-50%, -50%); /* Center on mouse */
+            mix-blend-mode: difference; /* Optional: Cool effect over black lines */
+        }
+
+        .cursor-cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 50%; /* Make them circles */
+            width: 100%;
+            height: 100%;
+        }
+
+        /* COLOR LOGIC: TR & BL are Black */
+        .cell-1 { background: white; color: black; } /* TL */
+        .cell-2 { background: black; color: white; } /* TR */
+        .cell-3 { background: black; color: white; } /* BL */
+        .cell-4 { background: white; color: black; } /* BR */
+
+        /* 3. THE CONTAINER */
         .molecule-container {
             position: relative;
             width: 40vw; 
-            height: 20vw; /* Aspect ratio matches SVG 100x50 (2:1) */
+            height: 20vw; 
             max-width: 600px;
             max-height: 300px;
         }
 
-        /* 3. OPENING ANIMATION */
+        /* 4. OPENING ANIMATION */
         svg {
             width: 100%;
             height: 100%;
             display: block;
             overflow: visible;
-            
             transform-origin: center;
             transform: scaleY(0);
             opacity: 0;
             animation: unfoldLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Animation for the Line */
         @keyframes unfoldLine {
-            0% { 
-                transform: scaleY(0); 
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            100% { 
-                transform: scaleY(1);
-                opacity: 1;
-            }
+            0% { transform: scaleY(0); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: scaleY(1); opacity: 1; }
         }
 
-        /* CRITICAL FIX: Missing Animation for the Name */
         @keyframes fadeName {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -76,19 +99,18 @@
             stroke-miterlimit: 20;
         }
 
-        /* 4. INTERACTION POINTS */
+        /* 5. INTERACTION POINTS */
         .carbon-point {
             position: absolute;
             width: 40px; 
             height: 40px;
             transform: translate(-50%, -50%);
-            cursor: pointer;
             z-index: 20;
             border-radius: 50%;
-            /* background: rgba(255,0,0,0.2); Uncomment to debug positions */
+            cursor: none; /* Ensure custom cursor stays */
         }
 
-        /* 5. LABELS (Text) */
+        /* 6. LABELS (Text) */
         .label {
             position: absolute;
             font-size: 1.5rem;
@@ -99,7 +121,8 @@
             opacity: 0; 
             transition: opacity 0.3s ease, transform 0.3s ease;
             z-index: 10;
-            pointer-events: auto; 
+            pointer-events: auto;
+            cursor: none; 
         }
 
         .label a {
@@ -107,29 +130,34 @@
             color: #000000;
             display: block;
             padding: 5px;
+            cursor: none;
         }
 
         /* --- HOVER LOGIC & POSITIONS --- */
 
-        /* 1. ABOUT (Bottom Left: 5, 45) */
-        #c1 { left: 2%; top: 90%; }
-        #label-about { left: 2%; top: 90%; transform: translate(-50%, 30px); }
+        /* 1. ABOUT (Bottom Left) */
+        #c1 { left: 5%; top: 90%; }
+        #label-about { left: 5%; top: 90%; transform: translate(-50%, 30px); }
 
         #c1:hover ~ #label-about, #label-about:hover { 
             opacity: 1; 
             transform: translate(-50%, 20px); 
         }
 
-        /* 2. PROJECTS (Top Left: 35, 5) */
+        /* 2. PROJECTS (Top Left) - UP */
         #c2 { left: 35%; top: 10%; }
-        #label-projects { left: 35%; top: 10%; transform: translate(-50%, -70px); }
+        #label-projects { 
+            left: 35%; 
+            top: 10%; 
+            transform: translate(-50%, -70px); 
+        }
 
         #c2:hover ~ #label-projects, #label-projects:hover { 
             opacity: 1; 
             transform: translate(-50%, -60px); 
         }
 
-        /* 3. MATERIALS (Bottom Right: 65, 45) */
+        /* 3. MATERIALS (Bottom Right) */
         #c3 { left: 65%; top: 90%; }
         #label-materials { left: 65%; top: 90%; transform: translate(-50%, 30px); }
 
@@ -138,68 +166,33 @@
             transform: translate(-50%, 20px); 
         }
 
-        /* 4. NAME (Top Right: 95, 5) */
+        /* 4. NAME (Top Right) - ALIGNED UP WITH PROJECTS */
         #c4 { left: 95%; top: 10%; }
         
         #label-name {
             left: 95%; 
             top: 10%;
+            /* Animation Restored */
             opacity: 0; 
             font-weight: 600; 
             font-size: 1.7rem;
-            transform: translate(15px, -60%);
+            
+            /* ALIGNMENT FIX: Moved from right side (translate 15px) to TOP (translate -70px) */
+            /* This matches the 'Projects' height exactly */
+            transform: translate(-50%, -70px); 
+            
             animation: fadeName 1s ease forwards;
-            animation-delay: 1.2s; /* Waits for line to unfold */
+            animation-delay: 1.2s;
         }
         
-        /* Hover effect just for the name link */
+        /* Hover effect for name link */
         #label-name a:hover {
             opacity: 0.6;
         }
 
         /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
-            .molecule-container { width: 80vw; height: 40vw; }
-            .label { opacity: 1; font-size: 0.7rem; }
+            body { cursor: auto; } /* Restore normal cursor on touch devices */
+            #custom-cursor { display: none; }
             
-            #label-about { transform: translate(-50%, 20px); }
-            #label-projects { transform: translate(-50%, -20px); }
-            #label-materials { transform: translate(-50%, 20px); }
-            
-            #label-name { 
-                transform: translate(0, -30px); 
-                right: 0; left: auto; text-align: right;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="molecule-container">
-        <svg viewBox="0 0 100 50" preserveAspectRatio="none">
-            <polyline class="bond-line" points="5,45 35,5 65,45 95,5" />
-        </svg>
-
-        <a href="about.html" class="carbon-point" id="c1"></a>
-        <div class="label" id="label-about">
-            <a href="about.html">About</a>
-        </div>
-
-        <a href="projects.html" class="carbon-point" id="c2"></a>
-        <div class="label" id="label-projects">
-            <a href="projects.html">Projects</a>
-        </div>
-
-        <a href="materials.html" class="carbon-point" id="c3"></a>
-        <div class="label" id="label-materials">
-            <a href="materials.html">Materials</a>
-        </div>
-
-        <a href="index.html" class="carbon-point" id="c4"></a>
-        <div class="label" id="label-name">
-            <a href="index.html">Jung Eun Park</a>
-        </div>
-    </div>
-
-</body>
-</html>
+            .molecule-container { width: 80
