@@ -36,7 +36,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            transform: translate(-50%, -50%); /* Center on mouse */
+            transform: translate(-50%, -50%);
         }
 
         .cursor-cell {
@@ -74,8 +74,6 @@
             display: block;
             overflow: visible;
             transform-origin: center;
-            
-            /* Animation Config */
             opacity: 0; 
             transform: scaleY(0);
             animation: unfoldLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -93,7 +91,7 @@
             100% { opacity: 1; transform: translate(-40%, -70px); }
         }
 
-        /* LINE STYLE */
+        /* STROKE */
         .bond-line {
             fill: none;
             stroke: #000000;
@@ -137,7 +135,7 @@
             cursor: none;
         }
 
-        /* --- HOVER LOGIC & POSITIONS --- */
+        /* --- HOVER --- */
 
         /* 1. ABOUT (Bottom Left) */
         #c1 { left: 5%; top: 90%; }
@@ -148,13 +146,13 @@
             transform: translate(-50%, 20px); 
         }
 
-        /* 2. PROJECTS (Top Left) - MOVED UP */
+        /* 2. PROJECTS (Top Left) */
         #c2 { left: 35%; top: 10%; }
         
         #label-projects { 
             left: 35%; 
             top: 10%; 
-            transform: translate(-50%, -70px); /* Pushed Up */
+            transform: translate(-50%, -70px);
         }
 
         #c2:hover ~ #label-projects, #label-projects:hover { 
@@ -171,25 +169,16 @@
             transform: translate(-50%, 20px); 
         }
 
-        /* 4. NAME (Top Right) - ALIGNED & ANIMATED */
+        /* 4. NAME (Top Right) */
         #c4 { left: 95%; top: 10%; }
         
         #label-name {
             left: 95%; 
             top: 10%;
-            
-            /* START STATE */
             opacity: 0; 
-            font-weight: 600; 
+            font-weight: 500; 
             font-size: 1.7rem;
-            
-            /* ALIGNMENT:
-               -70px Y: Matches "Projects" height exactly.
-               -80% X: Anchors text to the left of the dot so it fits on screen. 
-            */
             transform: translate(-40%, -70px); 
-            
-            /* Animation */
             animation: fadeName 1s ease forwards;
             animation-delay: 1.2s;
         }
@@ -198,7 +187,6 @@
             opacity: 0.6;
         }
 
-        /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
             body { cursor: auto; }
             #custom-cursor { display: none; }
