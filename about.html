@@ -20,6 +20,17 @@
             cursor: none; 
         }
 
+        /* --- ANIMATION DEFINITIONS --- */
+        @keyframes slideInLeft {
+            0% { transform: translateX(-150%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes softFadeUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         /* 2. CUSTOM CURSOR */
         #custom-cursor {
             position: fixed;
@@ -47,9 +58,9 @@
         .cell-3 { background: black; color: white; border: 1px solid white; } 
         .cell-4 { background: white; color: black; border: 1px solid black; } 
 
-        /* 3. LEFT PANEL (Navigation) - REDUCED TO 22% */
+        /* 3. LEFT PANEL (Navigation) */
         .left-panel {
-            width: 22vw; /* Reduced Width */
+            width: 22vw;
             height: 100vh;
             background-color: #000000;
             color: #ffffff;
@@ -57,15 +68,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Ensures text doesn't bleed out */
+            overflow: hidden;
+            z-index: 10;
         }
 
-        /* 4. VERTICAL GRAPHIC - REDUCED SIZE (2/3) */
+        /* 4. VERTICAL GRAPHIC - ANIMATED */
         .nav-molecule {
             position: relative;
-            width: 40%; /* Reduced from 60% */
+            width: 40%;
             height: 70vh; 
             max-width: 150px;
+            opacity: 0;
+            transform: translateX(-150%);
+            animation: slideInLeft 1s cubic-bezier(0.25, 1, 0.2, 1) forwards;
+            animation-delay: 0.2s;
         }
 
         svg {
@@ -97,8 +113,7 @@
 
         .label {
             position: absolute;
-            /* Base font size smaller to fit in 22vw */
-            font-size: 0.85rem; 
+            font-size: 0.85rem;
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -119,56 +134,49 @@
         }
 
         .label:hover, .label.active { opacity: 1; }
-        .label.active { font-weight: 700; text-decoration: underline; }
+        
+        /* RESTORED BOLD STYLING FOR ACTIVE PAGE */
+        .label.active { 
+            font-weight: 700; /* Bold */
+            text-decoration: none; /* No underline */
+        }
 
-        /* --- POSITIONS (ADJUSTED FOR FIT) --- */
+        /* --- POSITIONS --- */
         
-        /* 1. NAME (Top Center) */
         #n1 { left: 50%; top: 5%; }
-        
         #label-name { 
-            left: 50%; 
-            top: 5%; 
+            left: 50%; top: 5%; 
             transform: translate(-50%, -40px); 
             opacity: 1; 
             font-weight: 700;
-            /* NAME BIGGER THAN OTHERS */
-            font-size: 1.2rem; 
+            font-size: 1.2rem;
         }
 
-        /* 2. MATERIALS (Right Zig) */
         #n2 { left: 80%; top: 35%; }
-        
         #label-materials { 
             left: 80%; top: 35%; 
-            /* Push slightly right, keep left aligned */
             transform: translate(15px, -50%); 
             text-align: left;
         }
 
-        /* 3. PROJECTS (Left Zag) */
         #n3 { left: 20%; top: 65%; }
-        
         #label-projects { 
             left: 20%; top: 65%; 
-            /* Push slightly left, keep right aligned */
             transform: translate(-100%, -50%); 
             margin-left: -15px; 
             text-align: right;
         }
 
-        /* 4. ABOUT (Bottom Center) */
         #n4 { left: 50%; top: 95%; }
-        
         #label-about { 
             left: 50%; top: 95%; 
             transform: translate(-50%, 30px);
             text-align: center;
         }
 
-        /* 6. RIGHT PANEL (Content) - INCREASED TO 78% */
+        /* 6. RIGHT PANEL (Content) */
         .right-panel {
-            width: 78vw; /* Fills the rest */
+            width: 78vw;
             height: 100vh;
             background-color: #ffffff;
             color: #000000;
@@ -176,26 +184,32 @@
             padding: 80px;
         }
 
+        /* CONTENT CONTAINER - ANIMATED */
         .content-container {
             max-width: 900px;
             margin: 0 auto;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: softFadeUp 1s ease-out forwards;
+            animation-delay: 0.6s;
         }
 
         h1 { font-size: 3rem; margin-bottom: 2rem; font-weight: 300; }
         p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 1.5rem; }
 
-        /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
             body { flex-direction: column; cursor: auto; overflow: auto; }
             #custom-cursor { display: none; }
 
             .left-panel { width: 100vw; height: 300px; }
-            .nav-molecule { width: 60vw; height: 200px; } /* Reset size for mobile */
+            .nav-molecule { width: 60vw; height: 200px; }
             .right-panel { width: 100vw; height: auto; padding: 40px; }
             
-            /* Reset font sizes for mobile readability */
             .label { font-size: 0.8rem; }
             #label-name { font-size: 1rem; }
+            
+            .nav-molecule { animation-delay: 0s; }
+            .content-container { animation-delay: 0.3s; }
         }
 
     </style>
@@ -222,12 +236,12 @@
             </div>
 
             <a href="projects.html" class="carbon-point" id="n3"></a>
-            <div class="label" id="label-projects">
+            <div class="label active" id="label-projects">
                 <a href="projects.html">Projects</a>
             </div>
 
             <a href="about.html" class="carbon-point" id="n4"></a>
-            <div class="label active" id="label-about">
+            <div class="label" id="label-about">
                 <a href="about.html">About</a>
             </div>
         </div>
