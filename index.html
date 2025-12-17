@@ -100,7 +100,8 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             white-space: nowrap;
-            opacity: 0.4; 
+            opacity: 0; 
+            --target-opacity: 0.3;
             transition: opacity 0.3s ease, transform 0.3s ease;
             z-index: 10;
             pointer-events: auto;
@@ -145,7 +146,8 @@
         #label-name {
             left: 95%; 
             top: 10%;
-            opacity: 1 !important;
+            opacity: 0;
+            --target-opacity: 1;
             font-weight: 500; 
             font-size: 2rem;
             transform: translate(-40%, -70px); 
