@@ -1,1 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jung Eun Park</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='5,80 35,20 65,80 95,20' fill='none' stroke='black' stroke-width='4' stroke-linecap='square' stroke-linejoin='miter'/></svg>">
 
+    <style>
+        /* 1. RESET & LAYOUT */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            height: 100vh;
+            width: 100vw;
+            display: flex; 
+            overflow: hidden; 
+            cursor: none; 
+        }
+
+        /* 2. CUSTOM CURSOR */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            pointer-events: none;
+            z-index: 9999;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            transform: translate(-50%, -50%);
+        }
+        .cursor-cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 50%;
+        }
+        .cell-1 { background: white; color: black; border: 1px solid black; } 
+        .cell-2 { background: black; color: white; border: 1px solid white; } 
+        .cell-3 { background: black; color: white; border: 1px solid white; } 
+        .cell-4 { background: white; color: black; border: 1px solid black; } 
+
+        /* 3. LEFT PANEL (Navigation) */
+        .left-panel {
+            width: 25vw;
+            height: 100vh;
+            background-color: #000000;
+            color: #ffffff;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-molecule {
+            position: relative;
+            width: 60%; 
+            height: 80vh; 
+            max-width: 200px;
+        }
+
+        /* 4. VERTICAL GRAPHIC */
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            overflow: visible;
+        }
+
+        .bond-line {
+            fill: none;
+            stroke: #ffffff; /* White Line */
+            stroke-width: 2;
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+            stroke-miterlimit: 20;
+        }
+
+        /* 5. INTERACTION POINTS & LABELS */
+        .carbon-point {
+            position: absolute;
+            width: 40px; 
+            height: 40px;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            border-radius: 50%;
+            cursor: none;
+        }
+
+        .label {
+            position: absolute;
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            opacity: 0.5; /* Dimmed by default */
+            transition: opacity 0.3s ease;
+            z-index: 10;
+            pointer-events: auto;
+            cursor: none;
+        }
+
+        .label a {
+            text-decoration: none;
+            color: #ffffff;
+            display: block;
+            padding: 5px;
+            cursor: none;
+        }
+
+        .label:hover, .label.active {
+            opacity: 1;
+        }
+        
+        /* Make current page bold */
+        .label.active { font-weight: 700; text-decoration: underline; }
+
+        /* --- POSITIONS (NEW ORDER) --- */
+        
+        /* 1. NAME (Top Center: 50, 5) */
+        #n1 { left: 50%; top: 5%; }
+        #label-name { 
+            left: 50%; 
+            top: 5%; 
+            transform: translate(-50%, -40px); /* Above dot */
+            opacity: 1; 
+            font-weight: 700;
+        }
+
+        /* 2. MATERIALS (Right Zig: 80, 35) */
+        #n2 { left: 80%; top: 35%; }
+        #label-materials { 
+            left: 80%; top: 35%; 
+            transform: translate(20px, -50%); /* To the right */
+            text-align: left;
+        }
+
+        /* 3. PROJECTS (Left Zag: 20, 65) */
+        #n3 { left: 20%; top: 65%; }
+        #label-projects { 
+            left: 20%; top: 65%; 
+            transform: translate(-100%, -50%); /* To the left */
+            margin-left: -20px;
+            text-align: right;
+        }
+
+        /* 4. ABOUT (Bottom Center: 50, 95) */
+        #n4 { left: 50%; top: 95%; }
+        #label-about { 
+            left: 50%; top: 95%; 
+            transform: translate(-50%, 30px); /* Below dot */
+            text-align: center;
+        }
+
+
+        /* 6. RIGHT PANEL (Content) */
+        .right-panel {
+            width: 75vw;
+            height: 100vh;
+            background-color: #ffffff;
+            color: #000000;
+            overflow-y: auto;
+            padding: 80px;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 2rem; font-weight: 300; }
+        p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 1.5rem; }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 768px) {
+            body { flex-direction: column; cursor: auto; overflow: auto; }
+            #custom-cursor { display: none; }
+
+            .left-panel { width: 100vw; height: 300px; }
+            .right-panel { width: 100vw; height: auto; padding: 40px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor">
+        <div class="cursor-cell cell-1">가</div>
+        <div class="cursor-cell cell-2">A</div>
+        <div class="cursor-cell cell-3">あ</div>
+        <div class="cursor-cell cell-4">क</div>
+    </div>
+
+    <div class="left-panel">
+        <div class="nav-molecule">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                <polyline class="bond-line" points="50,5 80,35 20,65 50,95" />
+            </svg>
+
+            <a href="index.html" class="carbon-point" id="n1"></a>
+            <div class="label" id="label-name">
+                <a href="index.html">Jung Eun Park</a>
+            </div>
+
+            <a href="materials.html" class="carbon-point" id="n2"></a>
+            <div class="label" id="label-materials">
+                <a href="materials.html">Materials</a>
+            </div>
+
+            <a href="projects.html" class="carbon-point" id="n3"></a>
+            <div class="label active" id="label-projects"> <a href="projects.html">Projects</a>
+            </div>
+
+            <a href="about.html" class="carbon-point" id="n4"></a>
+            <div class="label" id="label-about">
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="content-container">
+            <h1>Page Title</h1>
+            <p>Paste your content here.</p>
+        </div>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            if(cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+    </script>
+
+</body>
+</html>
