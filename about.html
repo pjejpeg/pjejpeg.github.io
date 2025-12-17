@@ -210,6 +210,16 @@
             .label { animation: none; opacity: 1; transform: translate(var(--tx), var(--ty)); }
             .content-container { animation-delay: 0.3s; }
         }
+svg.static-state {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: scaleX(1) !important;
+}
+.label.static-state {
+    animation: none !important;
+    opacity: var(--target-opacity) !important; 
+    transform: translate(var(--tx), var(--ty)) !important;
+}
     </style>
 </head>
 <body>
@@ -253,6 +263,15 @@
     </div>
 
     <script>
+    const referrer = document.referrer;
+    const subpages = ['about.html', 'projects.html', 'materials.html'];
+    const cameFromSubpage = subpages.some(page => referrer.includes(page));
+    if (cameFromSubpage) {
+        const svg = document.querySelector('svg');
+        const labels = document.querySelectorAll('.label');
+        if(svg) svg.classList.add('static-state');
+        labels.forEach(label => label.classList.add('static-state'));
+    }
         const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => {
             if(cursor) {
@@ -260,6 +279,7 @@
                 cursor.style.top = e.clientY + 'px';
             }
         });
+        
     </script>
 
 </body>
