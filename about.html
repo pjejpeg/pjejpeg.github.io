@@ -8,7 +8,6 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='5,80 35,20 65,80 95,20' fill='none' stroke='black' stroke-width='4' stroke-linecap='square' stroke-linejoin='miter'/></svg>">
 
     <style>
-        /* 1. RESET & LAYOUT */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -19,19 +18,19 @@
             overflow: hidden; 
             cursor: none; 
         }
-
-        /* --- ANIMATION DEFINITIONS --- */
-        @keyframes slideInLeft {
-            0% { transform: translateX(-150%); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
+        @keyframes unfoldVertical {
+            0% { transform: scaleX(0); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: scaleX(1); opacity: 1; }
         }
 
+        @keyframes fadeLabels {
+            to { opacity: 1; transform: translate(var(--tx), var(--ty)); }
+        }
         @keyframes softFadeUp {
             0% { opacity: 0; transform: translateY(40px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
-        /* 2. CUSTOM CURSOR */
         #custom-cursor {
             position: fixed;
             top: 0;
@@ -57,8 +56,6 @@
         .cell-2 { background: black; color: white; border: 1px solid white; } 
         .cell-3 { background: black; color: white; border: 1px solid white; } 
         .cell-4 { background: white; color: black; border: 1px solid black; } 
-
-        /* 3. LEFT PANEL (Navigation) */
         .left-panel {
             width: 22vw;
             height: 100vh;
@@ -72,16 +69,11 @@
             z-index: 10;
         }
 
-        /* 4. VERTICAL GRAPHIC - ANIMATED */
         .nav-molecule {
             position: relative;
             width: 40%;
             height: 70vh; 
             max-width: 150px;
-            opacity: 0;
-            transform: translateX(-150%);
-            animation: slideInLeft 1s cubic-bezier(0.25, 1, 0.2, 1) forwards;
-            animation-delay: 0.2s;
         }
 
         svg {
@@ -89,6 +81,11 @@
             height: 100%;
             display: block;
             overflow: visible;
+
+            transform-origin: center;
+            transform: scaleX(0); /* Start Flat Vertically */
+            opacity: 0;
+            animation: unfoldVertical 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .bond-line {
@@ -100,7 +97,6 @@
             stroke-miterlimit: 20;
         }
 
-        /* 5. INTERACTION POINTS & LABELS */
         .carbon-point {
             position: absolute;
             width: 40px; 
@@ -118,11 +114,14 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             white-space: nowrap;
-            opacity: 0.5;
-            transition: opacity 0.3s ease;
+            
+            opacity: 0; 
             z-index: 10;
             pointer-events: auto;
             cursor: none;
+            
+            animation: fadeLabels 0.8s ease forwards;
+            animation-delay: 0.8s;
         }
 
         .label a {
@@ -133,45 +132,47 @@
             cursor: none;
         }
 
-        .label:hover, .label.active { opacity: 1; }
-        .label.active { 
-            font-weight: 700;
-        }
+        .label:hover { opacity: 1 !important; }
 
-        /* --- POSITIONS --- */
-        
+        .label.active { 
+            font-weight: 700; 
+            text-decoration: none;
+            opacity: 1;
+        }
         #n1 { left: 50%; top: 5%; }
         #label-name { 
             left: 50%; top: 5%; 
-            transform: translate(-50%, -40px); 
-            opacity: 1; 
+            --tx: -50%; --ty: -40px;
+            transform: translate(-50%, -50px); 
             font-weight: 700;
             font-size: 1.2rem;
+            animation-delay: 0.5s; 
         }
 
         #n2 { left: 80%; top: 35%; }
         #label-materials { 
             left: 80%; top: 35%; 
-            transform: translate(15px, -50%); 
+            --tx: 15px; --ty: -50%;
+            transform: translate(25px, -50%);
             text-align: left;
         }
 
         #n3 { left: 20%; top: 65%; }
         #label-projects { 
             left: 20%; top: 65%; 
-            transform: translate(-100%, -50%); 
-            margin-left: -15px; 
+            --tx: -100%; --ty: -50%;
+            transform: translate(-100%, -50%);
+            margin-left: -15px;
             text-align: right;
         }
 
         #n4 { left: 50%; top: 95%; }
         #label-about { 
             left: 50%; top: 95%; 
-            transform: translate(-50%, 30px);
+            --tx: -50%; --ty: 30px;
+            transform: translate(-50%, 40px);
             text-align: center;
         }
-
-        /* 6. RIGHT PANEL (Content) */
         .right-panel {
             width: 78vw;
             height: 100vh;
@@ -180,8 +181,6 @@
             overflow-y: auto;
             padding: 80px;
         }
-
-        /* CONTENT CONTAINER - ANIMATED */
         .content-container {
             max-width: 900px;
             margin: 0 auto;
@@ -205,7 +204,8 @@
             .label { font-size: 0.8rem; }
             #label-name { font-size: 1rem; }
             
-            .nav-molecule { animation-delay: 0s; }
+            svg { animation: none; opacity: 1; transform: scaleX(1); }
+            .label { animation: none; opacity: 1; transform: translate(var(--tx), var(--ty)); }
             .content-container { animation-delay: 0.3s; }
         }
 
