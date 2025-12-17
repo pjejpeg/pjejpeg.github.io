@@ -25,8 +25,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             pointer-events: none;
             z-index: 9999;
             display: grid;
@@ -38,7 +38,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 10px;
+            font-size: 6px;
             font-weight: 700;
             border-radius: 50%;
         }
@@ -47,9 +47,9 @@
         .cell-3 { background: black; color: white; border: 1px solid white; } 
         .cell-4 { background: white; color: black; border: 1px solid black; } 
 
-        /* 3. LEFT PANEL (Navigation) */
+        /* 3. LEFT PANEL (Navigation) - REDUCED TO 22% */
         .left-panel {
-            width: 25vw;
+            width: 22vw; /* Reduced Width */
             height: 100vh;
             background-color: #000000;
             color: #ffffff;
@@ -57,16 +57,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden; /* Ensures text doesn't bleed out */
         }
 
+        /* 4. VERTICAL GRAPHIC - REDUCED SIZE (2/3) */
         .nav-molecule {
             position: relative;
-            width: 60%; 
-            height: 80vh; 
-            max-width: 200px;
+            width: 40%; /* Reduced from 60% */
+            height: 70vh; 
+            max-width: 150px;
         }
 
-        /* 4. VERTICAL GRAPHIC */
         svg {
             width: 100%;
             height: 100%;
@@ -76,7 +77,7 @@
 
         .bond-line {
             fill: none;
-            stroke: #ffffff; /* White Line */
+            stroke: #ffffff;
             stroke-width: 2;
             stroke-linecap: square;
             stroke-linejoin: miter;
@@ -96,12 +97,13 @@
 
         .label {
             position: absolute;
-            font-size: 1rem;
+            /* Base font size smaller to fit in 22vw */
+            font-size: 0.85rem; 
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 2px;
             white-space: nowrap;
-            opacity: 0.5; /* Dimmed by default */
+            opacity: 0.5;
             transition: opacity 0.3s ease;
             z-index: 10;
             pointer-events: auto;
@@ -116,54 +118,57 @@
             cursor: none;
         }
 
-        .label:hover, .label.active {
-            opacity: 1;
-        }
-        
-        /* Make current page bold */
+        .label:hover, .label.active { opacity: 1; }
         .label.active { font-weight: 700; text-decoration: underline; }
 
-        /* --- POSITIONS (NEW ORDER) --- */
+        /* --- POSITIONS (ADJUSTED FOR FIT) --- */
         
-        /* 1. NAME (Top Center: 50, 5) */
+        /* 1. NAME (Top Center) */
         #n1 { left: 50%; top: 5%; }
+        
         #label-name { 
             left: 50%; 
             top: 5%; 
-            transform: translate(-50%, -40px); /* Above dot */
+            transform: translate(-50%, -40px); 
             opacity: 1; 
             font-weight: 700;
+            /* NAME BIGGER THAN OTHERS */
+            font-size: 1.2rem; 
         }
 
-        /* 2. MATERIALS (Right Zig: 80, 35) */
+        /* 2. MATERIALS (Right Zig) */
         #n2 { left: 80%; top: 35%; }
+        
         #label-materials { 
             left: 80%; top: 35%; 
-            transform: translate(20px, -50%); /* To the right */
+            /* Push slightly right, keep left aligned */
+            transform: translate(15px, -50%); 
             text-align: left;
         }
 
-        /* 3. PROJECTS (Left Zag: 20, 65) */
+        /* 3. PROJECTS (Left Zag) */
         #n3 { left: 20%; top: 65%; }
+        
         #label-projects { 
             left: 20%; top: 65%; 
-            transform: translate(-100%, -50%); /* To the left */
-            margin-left: -20px;
+            /* Push slightly left, keep right aligned */
+            transform: translate(-100%, -50%); 
+            margin-left: -15px; 
             text-align: right;
         }
 
-        /* 4. ABOUT (Bottom Center: 50, 95) */
+        /* 4. ABOUT (Bottom Center) */
         #n4 { left: 50%; top: 95%; }
+        
         #label-about { 
             left: 50%; top: 95%; 
-            transform: translate(-50%, 30px); /* Below dot */
+            transform: translate(-50%, 30px);
             text-align: center;
         }
 
-
-        /* 6. RIGHT PANEL (Content) */
+        /* 6. RIGHT PANEL (Content) - INCREASED TO 78% */
         .right-panel {
-            width: 75vw;
+            width: 78vw; /* Fills the rest */
             height: 100vh;
             background-color: #ffffff;
             color: #000000;
@@ -185,7 +190,12 @@
             #custom-cursor { display: none; }
 
             .left-panel { width: 100vw; height: 300px; }
+            .nav-molecule { width: 60vw; height: 200px; } /* Reset size for mobile */
             .right-panel { width: 100vw; height: auto; padding: 40px; }
+            
+            /* Reset font sizes for mobile readability */
+            .label { font-size: 0.8rem; }
+            #label-name { font-size: 1rem; }
         }
 
     </style>
@@ -193,11 +203,7 @@
 <body>
 
     <div id="custom-cursor">
-        <div class="cursor-cell cell-1">가</div>
-        <div class="cursor-cell cell-2">A</div>
-        <div class="cursor-cell cell-3">あ</div>
-        <div class="cursor-cell cell-4">क</div>
-    </div>
+        <div class="cursor-cell cell-1">가</div> <div class="cursor-cell cell-2">A</div>  <div class="cursor-cell cell-3">あ</div> <div class="cursor-cell cell-4">क</div>  </div>
 
     <div class="left-panel">
         <div class="nav-molecule">
@@ -216,7 +222,8 @@
             </div>
 
             <a href="projects.html" class="carbon-point" id="n3"></a>
-            <div class="label active" id="label-projects"> <a href="projects.html">Projects</a>
+            <div class="label active" id="label-projects">
+                <a href="projects.html">Projects</a>
             </div>
 
             <a href="about.html" class="carbon-point" id="n4"></a>
@@ -228,7 +235,7 @@
 
     <div class="right-panel">
         <div class="content-container">
-            <h1>Page Title</h1>
+            <h1>Selected Projects</h1>
             <p>Paste your content here.</p>
         </div>
     </div>
@@ -236,10 +243,8 @@
     <script>
         const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => {
-            if(cursor) {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            }
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
     </script>
 
