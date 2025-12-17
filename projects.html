@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jung Eun Park</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline points='5,80 35,20 65,80 95,20' fill='none' stroke='black' stroke-width='4' stroke-linecap='square' stroke-linejoin='miter'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolyline points='5,80 35,20 65,80 95,20' fill='none' stroke='black' stroke-width='4' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,10 +14,11 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             height: 100vh;
             width: 100vw;
-            display: flex; 
-            overflow: hidden; 
-            cursor: none; 
+            display: flex;
+            overflow: hidden;
+            cursor: none;
         }
+
         @keyframes unfoldVertical {
             0% { transform: scaleX(0); opacity: 0; }
             10% { opacity: 1; }
@@ -25,12 +26,14 @@
         }
 
         @keyframes fadeLabels {
-            to { opacity: 1; transform: translate(var(--tx), var(--ty)); }
+            to { opacity: var(--target-opacity); transform: translate(var(--tx), var(--ty)); }
         }
+
         @keyframes softFadeUp {
             0% { opacity: 0; transform: translateY(40px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+
         #custom-cursor {
             position: fixed;
             top: 0;
@@ -56,6 +59,7 @@
         .cell-2 { background: black; color: white; border: 1px solid white; } 
         .cell-3 { background: black; color: white; border: 1px solid white; } 
         .cell-4 { background: white; color: black; border: 1px solid black; } 
+
         .left-panel {
             width: 22vw;
             height: 100vh;
@@ -81,9 +85,8 @@
             height: 100%;
             display: block;
             overflow: visible;
-
             transform-origin: center;
-            transform: scaleX(0); /* Start Flat Vertically */
+            transform: scaleX(0); 
             opacity: 0;
             animation: unfoldVertical 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -114,12 +117,11 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             white-space: nowrap;
-            
             opacity: 0; 
             z-index: 10;
             pointer-events: auto;
             cursor: none;
-            
+            --target-opacity: 0.5;
             animation: fadeLabels 0.8s ease forwards;
             animation-delay: 0.8s;
         }
@@ -137,13 +139,14 @@
         .label.active { 
             font-weight: 700; 
             text-decoration: none;
-            opacity: 1;
+            --target-opacity: 1;
         }
+
         #n1 { left: 50%; top: 5%; }
         #label-name { 
             left: 50%; top: 5%; 
-            --tx: -50%; --ty: -40px;
-            transform: translate(-50%, -50px); 
+            --tx: -50%; --ty: -55px;
+            transform: translate(-50%, -65px); 
             font-weight: 700;
             font-size: 1.2rem;
             animation-delay: 0.5s; 
@@ -173,6 +176,7 @@
             transform: translate(-50%, 40px);
             text-align: center;
         }
+
         .right-panel {
             width: 78vw;
             height: 100vh;
@@ -181,6 +185,7 @@
             overflow-y: auto;
             padding: 80px;
         }
+
         .content-container {
             max-width: 900px;
             margin: 0 auto;
@@ -196,19 +201,15 @@
         @media (max-width: 768px) {
             body { flex-direction: column; cursor: auto; overflow: auto; }
             #custom-cursor { display: none; }
-
             .left-panel { width: 100vw; height: 300px; }
             .nav-molecule { width: 60vw; height: 200px; }
             .right-panel { width: 100vw; height: auto; padding: 40px; }
-            
             .label { font-size: 0.8rem; }
             #label-name { font-size: 1rem; }
-            
             svg { animation: none; opacity: 1; transform: scaleX(1); }
             .label { animation: none; opacity: 1; transform: translate(var(--tx), var(--ty)); }
             .content-container { animation-delay: 0.3s; }
         }
-
     </style>
 </head>
 <body>
@@ -254,8 +255,10 @@
     <script>
         const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            if(cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
         });
     </script>
 
