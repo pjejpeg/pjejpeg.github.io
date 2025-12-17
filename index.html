@@ -76,6 +76,9 @@
             0% { opacity: 0; transform: translate(-40%, -60px); }
             100% { opacity: 1; transform: translate(-40%, -70px); }
         }
+        @keyframes fadeLabels {
+    to { opacity: var(--target-opacity); }
+}
         .bond-line {
             fill: none;
             stroke: #000000;
@@ -103,6 +106,8 @@
             opacity: 0; 
             --target-opacity: 0.3;
             transition: opacity 0.3s ease, transform 0.3s ease;
+            animation: fadeLabels 1s ease forwards;
+            animation-delay: 1.5s;
             z-index: 10;
             pointer-events: auto;
             cursor: none;
