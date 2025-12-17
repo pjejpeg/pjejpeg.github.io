@@ -26,7 +26,7 @@
         }
 
         @keyframes fadeLabels {
-            to { opacity: 1; transform: translate(var(--tx), var(--ty)); }
+            to { opacity: var(--target-opacity); transform: translate(var(--tx), var(--ty)); }
         }
 
         @keyframes softFadeUp {
@@ -121,6 +121,7 @@
             z-index: 10;
             pointer-events: auto;
             cursor: none;
+            --target-opacity: 0.5;
             animation: fadeLabels 0.8s ease forwards;
             animation-delay: 0.8s;
         }
@@ -138,14 +139,14 @@
         .label.active { 
             font-weight: 700; 
             text-decoration: none;
-            opacity: 1;
+            --target-opacity: 1;
         }
 
         #n1 { left: 50%; top: 5%; }
         #label-name { 
             left: 50%; top: 5%; 
-            --tx: -50%; --ty: -40px;
-            transform: translate(-50%, -50px); 
+            --tx: -50%; --ty: -55px;
+            transform: translate(-50%, -65px); 
             font-weight: 700;
             font-size: 1.2rem;
             animation-delay: 0.5s; 
@@ -233,12 +234,12 @@
             </div>
 
             <a href="projects.html" class="carbon-point" id="n3"></a>
-            <div class="label active" id="label-projects">
+            <div class="label" id="label-projects">
                 <a href="projects.html">Projects</a>
             </div>
 
             <a href="about.html" class="carbon-point" id="n4"></a>
-            <div class="label" id="label-about">
+            <div class="label active" id="label-about">
                 <a href="about.html">About</a>
             </div>
         </div>
