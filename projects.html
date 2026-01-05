@@ -16,10 +16,9 @@
             width: 100vw;
             display: flex;
             overflow: hidden;
-            cursor: none; /* Hide default cursor */
+            cursor: none;
         }
 
-        /* --- NAV ANIMATIONS --- */
         @keyframes unfoldVertical {
             0% { transform: scaleX(0); opacity: 0; }
             10% { opacity: 1; }
@@ -33,7 +32,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- CURSOR --- */
         #custom-cursor {
             position: fixed;
             top: 0; left: 0;
@@ -54,7 +52,6 @@
         .cell-3 { background: black; color: white; border: 1px solid white; } 
         .cell-4 { background: white; color: black; border: 1px solid black; } 
 
-        /* --- LAYOUT --- */
         .left-panel {
             width: 22vw; height: 100vh;
             background-color: #000000; color: #ffffff;
@@ -99,7 +96,6 @@
         .label:hover { opacity: 1 !important; }
         .label.active { font-weight: 700; --target-opacity: 1; }
 
-        /* Molecule Positioning */
         #n1 { left: 50%; top: 5%; }
         #label-name { left: 50%; top: 5%; --tx: -50%; --ty: -55px; transform: translate(-50%, -65px); font-weight: 700; font-size: 1.2rem; animation-delay: 0.5s; }
         #n2 { left: 80%; top: 35%; }
@@ -109,7 +105,6 @@
         #n4 { left: 50%; top: 95%; }
         #label-about { left: 50%; top: 95%; --tx: -50%; --ty: 30px; transform: translate(-50%, 40px); text-align: center; }
 
-        /* --- RIGHT PANEL --- */
         .right-panel {
             width: 78vw; height: 100vh;
             background-color: #ffffff; color: #000000;
@@ -122,12 +117,11 @@
             animation: softFadeUp 1s ease-out forwards; animation-delay: 0.6s;
         }
 
-        /* --- MODAL STYLES --- */
         #project-modal {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
-            z-index: 5000; /* Above everything except cursor */
+            z-index: 5000;
             justify-content: center; align-items: center;
             overflow-y: auto;
         }
@@ -138,10 +132,9 @@
             margin: 50px auto; padding: 50px;
             position: relative; 
             border-radius: 2px;
-            cursor: auto; /* Normal cursor inside modal text */
+            cursor: auto;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             body { flex-direction: column; cursor: auto; overflow: auto; }
             #custom-cursor { display: none; }
@@ -151,8 +144,7 @@
             svg, .label { animation: none; opacity: 1; transform: scaleX(1); }
             .label { transform: translate(var(--tx), var(--ty)); }
         }
-
-        /* Persist Nav State */
+        
         svg.static-state { animation: none !important; opacity: 1 !important; transform: scaleX(1) !important; }
         .label.static-state { animation: none !important; opacity: var(--target-opacity) !important; transform: translate(var(--tx), var(--ty)) !important; }
     </style>
@@ -217,7 +209,7 @@
                         TECH: Max 8 Patch
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Interactive AudioVisual</h3>
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Interactive AV</h3>
                         <span style="font-size: 0.85rem; color: #888;">2023</span>
                     </div>
                     <p style="font-size: 0.9rem; color: #555; margin: 0;">Real-time Generative Launchpad</p>
@@ -235,21 +227,26 @@
                 </div>
 
                 <div onclick="openModal('sfc')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
-    
-    <div style="width: 100%; aspect-ratio: 16/9; background-color: #333; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:white; overflow:hidden;">
-        FILM: SFC Collection
-    </div>
-    
-    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
-            SFC Short Films
-        </h3>
-        <span style="font-size: 0.85rem; color: #888;">2022-23</span>
-    </div>
-    
-    <p style="font-size: 0.9rem; color: #555; margin: 0;">Production & Art Direction</p>
+                    <div style="width: 100%; aspect-ratio: 16/9; background-color: #333; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:white; overflow:hidden;">
+                        FILM: SFC Collection
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">SFC Short Films</h3>
+                        <span style="font-size: 0.85rem; color: #888;">2022-23</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0;">Production & Art Direction</p>
+                </div>
 
-</div>
+                <div onclick="openModal('dive')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
+                    <div style="width: 100%; aspect-ratio: 16/9; background-color: #eee; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:#999; overflow:hidden;">
+                        GAME: D!VE Prototype
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">D!VE</h3>
+                        <span style="font-size: 0.85rem; color: #888;">2021</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0;">Interactive Game Prototype</p>
+                </div>
 
             </div>
             </div>
@@ -263,7 +260,6 @@
     </div>
 
     <script>
-    // 1. NAV PERSISTENCE LOGIC
     const referrer = document.referrer;
     const subpages = ['about.html', 'projects.html', 'materials.html'];
     const cameFromSubpage = subpages.some(page => referrer.includes(page));
@@ -274,7 +270,6 @@
         labels.forEach(label => label.classList.add('static-state'));
     }
 
-    // 2. CURSOR LOGIC
     const cursor = document.getElementById('custom-cursor');
     document.addEventListener('mousemove', (e) => {
         if(cursor) {
@@ -283,7 +278,6 @@
         }
     });
 
-    // 3. PROJECT DATA (CONTENT)
     const projectData = {
         'daelim': `
             <h1 style="margin-bottom: 5px; font-size: 2rem;">Daelim to You</h1>
@@ -294,17 +288,17 @@
                 [Insert Film Still or Video]
             </div>
             <p style="line-height: 1.6; margin-bottom: 15px;">
-                <em>&lt;Daelim to You&gt;</em> is a short documentary film focusing on Sinophobia in Korea. With conservative shift being a rising social problem around the globe, Korea is also not free from the phenomenon. This shift takes the specific form of 'Sinophobia' in the Korean society.
+                <em>&lt;Daelim to You&gt;</em> (2' 47") is a short documentary film focusing on Sinophobia in Korea. With conservative shift being a rising social problem around the globe, Korea is also not free from the phenomenon. This shift, observed across a variety of fields such as gender, age, and religion, also takes the specific form of 'Sinophobia' in the Korean society.
             </p>
             <p style="line-height: 1.6; margin-bottom: 15px;">
-                Sinophobia, a term for xenophobia against Chinese culture and population, closely relates to the worldwide trend of ultranationalism. Daelim district is the largest and best known community of Chinese diaspora in Korea.
+                Sinophobia, a term for xenophobia against Chinese culture and population, closely relates to the worldwide trend of ultranationalism. Built upon the history shared among Northeast Asia and Western Countries, Sinophobia is one of the strongest propaganda that holds in today's Korea, with Daelim district of all being the largest and best known community of Chinese diaspora in Korea.
             </p>
             <p style="line-height: 1.6; margin-bottom: 15px;">
-                As fear and hatred grows, Daelim district is often depicted as unsafe and crime-ridden. Through the film, I aimed to show how Daelim is no different from and is part of the Seoul city, and how real life breathes everyday in the area. For this, I juxtaposed my own day with one in the district, visiting and becoming part of the scene.
+                As fear and hatred grows, Daelim district is often depicted and portrayed as unsafe and crime-ridden. Through the film, I aimed to show how Daelim is no different from and is part of the Seoul city, and how real life breathes everyday in the area. For this, I juxtaposed my own day with one in the district, visiting and becoming part of the scene.
             </p>
             <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
             <p style="font-size: 0.85rem; color: #555;">
-                * Currently under further development through 2026 Winter Documentary Program of Korea National Open University.
+                * The film is currently under further development through 2026 Winter Documentary Program of Korea National Open University.
             </p>
         `,
 
@@ -317,7 +311,7 @@
                 [Insert App UI Mockup]
             </div>
             <p style="line-height: 1.6; margin-bottom: 15px;">
-                OnDo, short for Online Doum(Help), is an AI-driven application model utilizing voice recognition to connect elderly users with local service providers. The project was awarded Excellence Prize by the Mayor of Gangnam-Gu. As a part of the team, I participated in model development and UI/UX design.
+                OnDo, short for Online Doum(Help), is an AI-driven application model utilizing voice recognition to connect elderly users with local service providers. The project was proposed through 2023 Gangnam-Gu Venture Startup Program and was awarded Excellence Prize by the Mayor of Gangnam-Gu. As a part of the team, I participated in model development and UI/UX design.
             </p>
             <h3 style="margin-top: 20px;">The Problem</h3>
             <p style="line-height: 1.6; margin-bottom: 15px;">
@@ -325,7 +319,7 @@
             </p>
             <h3 style="margin-top: 20px;">The Solution</h3>
             <p style="line-height: 1.6; margin-bottom: 15px;">
-                Through case studies of elderly age groups ranging from 60s to 80s, we concluded we must keep the user interface simple, displaying only a single button. The user describes the task verbally, which is recognized and sorted by AI into preset categories.
+                Through case studies of elderly age groups ranging from 60s to 80s, we were able to come to conclusion that we must keep the user interface as simple as we could, down to it displaying only a single button. Minimizing digital procedures, the user then proceeds to describing the task verbally, which is recognized and sorted by AI into preset categories. The given inquiries are then assigned to matching service providers in accordance to input database.
             </p>
         `,
 
@@ -342,10 +336,10 @@
             </p>
             <h3 style="margin-top: 20px;">Technical Process</h3>
             <p style="line-height: 1.6; margin-bottom: 15px;">
-                We started with the objective of involving multisensory experience, delivering a personalized HCI interaction as the output. We received input in form of ASCII code values through PC keyboard enabling users to make use of a simple launchpad.
+                We started with the objective of involving multisensory experience, delivering a personalized HCI interaction as the output. Thus, we received input in form of ASCII code values through PC keyboard enabling users to make use of a simple launchpad.
             </p>
             <p style="line-height: 1.6; margin-bottom: 15px;">
-                From the generated audio input and mouse coordinates, we fetched numeric values that decide fluid movements of the output, such as velocity, pressure, and divergence. Also, we extracted RGBA values from user camera, which then decides the color of the fluid.
+                From the generated audio input and mouse coordinates, we fetched numeric values that decide fluid movements of the output, such as velocity, pressure, and divergence. Also, we extracted RGBA values from user camera, which then decides the color of the fluid. Thus, the output fluid visualizer interacts in real-time with the user, portraying personalized experience through sonic and visual interactions.
             </p>
         `,
 
@@ -362,42 +356,57 @@
             </p>
             <h3 style="margin-top: 20px;">Concept</h3>
             <p style="line-height: 1.6; margin-bottom: 15px;">
-                The play explores through time and space, transcending both fundamentals and the medium itself by introducing real-world footage to the fictional stage. The audience are guided to board the spaceship, greeted by an annual commemoration of the ceased. Following the footsteps of past and future, the play questions the standing grounds of diaspora and individual.
+                The play explores through time and space, transcending both fundamentals and the medium itself by introducing real-world footage to the fictional stage. The audience are guided to board the spaceship, greeted by an annual commemoration of the ceased. Following the footsteps of past and future, the play questions the standing grounds of diaspora and individual, portraying how one chooses or cannot choose the path of their lives.
             </p>
         `,
-        
+
         'sfc': `
-        <h1 style="margin-bottom: 5px; font-size: 2rem;">SFC Short Films</h1>
-        <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
-            <strong>2022 - 2023 · Production Team · Sogang Film Community</strong>
-        </p>
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">SFC Short Films</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                <strong>2022 - 2023 · Production Team · Sogang Film Community</strong>
+            </p>
+            <div style="background: #eee; width: 100%; height: 300px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: #888;">
+                [Insert Film Montage or Behind-the-Scenes Photo]
+            </div>
+            <p style="line-height: 1.6; margin-bottom: 20px;">
+                As a member of the production team of Sogang Film Community (SFC), I participated in three short films, &lt;Explosion&gt;, &lt;Fate&gt;, and &lt;you're not ___&gt;.
+            </p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">1. &lt;Explosion&gt; (Art Lead)</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                The first film, &lt;Explosion&gt;, features a desperate student who plans to cause explosion at her school, but then chooses not to after dreaming the outcomes. As the Art Lead, I set up our club room as the main set.
+            </p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">2. &lt;Fate&gt; (Line Producer & Art Lead)</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                Second film, &lt;Fate&gt;, is set in a zombie apocalypse, questioning the choices an individual makes throughout their life facing one's fate. As the Art Lead and Line Producer, I prepared special makeups and managed the team and the actors throughout filming.
+            </p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">3. &lt;you're not ___&gt; (Assistant Director)</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                &lt;you're not ___&gt; is a short silent film that depicts the struggles an individual face as one tries to become a part of the society and eventually finds way to their real self. As the Assistant Director and Storyboard Artist, I drew the storyboard of the film and guided the production.
+            </p>
+        `,
 
-        <div style="background: #eee; width: 100%; height: 300px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: #888;">
-            [Insert Film Montage or Behind-the-Scenes Photo]
-        </div>
-
-        <p style="line-height: 1.6; margin-bottom: 20px;">
-            As a member of the production team of Sogang Film Community (SFC), I participated in the creation of three distinct short films, taking on diverse roles ranging from Art Direction to Line Production.
-        </p>
-
-        <h3 style="margin-top: 25px; margin-bottom: 10px;">1. &lt;Explosion&gt; (Art Lead)</h3>
-        <p style="line-height: 1.6; margin-bottom: 15px;">
-            The film features a desperate student who plans to cause an explosion at her school but chooses otherwise after a premonitory dream. As the <strong>Art Lead</strong>, I was responsible for transforming our club room into the main set, designing the visual atmosphere to reflect the protagonist's chaotic inner state.
-        </p>
-
-        <h3 style="margin-top: 25px; margin-bottom: 10px;">2. &lt;Fate&gt; (Line Producer & Art Lead)</h3>
-        <p style="line-height: 1.6; margin-bottom: 15px;">
-            Set in a zombie apocalypse, this film questions the choices an individual makes when facing their inevitable fate. I served as both <strong>Art Lead</strong> and <strong>Line Producer</strong>, preparing special effects makeup for the "zombies" and managing the on-set logistics, crew safety, and actor schedules throughout the shoot.
-        </p>
-
-        <h3 style="margin-top: 25px; margin-bottom: 10px;">3. &lt;you're not ___&gt; (Assistant Director)</h3>
-        <p style="line-height: 1.6; margin-bottom: 15px;">
-            A short silent film depicting the struggles of an individual trying to fit into society before eventually finding their true self. As <strong>Assistant Director</strong> and <strong>Storyboard Artist</strong>, I visualized the script into a shooting storyboard and guided the production flow to ensure the director's vision was captured without dialogue.
-        </p>
-    `,
+        'dive': `
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">D!VE</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                <strong>2021 · Mobile Game · Art Lead</strong>
+            </p>
+            <div style="background: #333; width: 100%; height: 300px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: white;">
+                [Insert Game Screenshot Here]
+            </div>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                D!VE is a side-view open world mobile game aiming to introduce various marine ecosystems and raise environmental awareness. As the Art Lead, I led the team from concept sketch to demo building in UI/UX design and artworks.
+            </p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">Concept & Environment</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                To craft a persuasive, emotive narrative, I directed the team to analyze how marine environments change corelated to varying depths of deep sea. Then, we studied how each organisms morph as they vary uniquely in figures and movements.
+            </p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">UI/UX Design</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                As the game is set with underwater backgrounds, I guided the team to design a simple interface with translucent opacity based on color white, which would harmonize with the art style as they are hand-painted and complicated and implies the image of air bubbles.
+            </p>
+        `
     };
 
-    // 4. MODAL LOGIC
     function openModal(id) {
         const modal = document.getElementById('project-modal');
         const body = document.getElementById('modal-body');
