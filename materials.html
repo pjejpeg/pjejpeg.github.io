@@ -99,7 +99,6 @@
         #n1 { left: 50%; top: 5%; }
         #label-name { left: 50%; top: 5%; --tx: -50%; --ty: -55px; transform: translate(-50%, -65px); font-weight: 700; font-size: 1.2rem; animation-delay: 0.5s; }
         #n2 { left: 80%; top: 35%; }
-        /* NOTE: Materials label is ACTIVE here */
         #label-materials { left: 80%; top: 35%; --tx: 15px; --ty: -50%; transform: translate(25px, -50%); text-align: left; }
         #n3 { left: 20%; top: 65%; }
         #label-projects { left: 20%; top: 65%; --tx: -100%; --ty: -50%; transform: translate(-100%, -50%); margin-left: -15px; text-align: right; }
@@ -118,7 +117,6 @@
             animation: softFadeUp 1s ease-out forwards; animation-delay: 0.6s;
         }
 
-        /* --- FIXED MODAL CSS (Same as Projects) --- */
         #project-modal {
             display: none;
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -189,44 +187,28 @@
 
                 <div onclick="openModal('print')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
                     <div style="width: 100%; aspect-ratio: 16/9; background-color: #333; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:white; overflow:hidden;">
-                        <img src="assets/3d_thumb.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">3D Fabrication</h3>
-                        <span style="font-size: 0.85rem; color: #888;">Misc.</span>
+                        <img src="assets/print1.png" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <p style="font-size: 0.9rem; color: #555; margin: 0;">Prototyping & Modeling</p>
                 </div>
 
                 <div onclick="openModal('design')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
                     <div style="width: 100%; aspect-ratio: 16/9; background-color: #eee; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:#999; overflow:hidden;">
-                        <img src="assets/design_thumb.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Graphic Identity</h3>
-                        <span style="font-size: 0.85rem; color: #888;">Misc.</span>
+                        <img src="assets/design1.png" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <p style="font-size: 0.9rem; color: #555; margin: 0;">Logos, Posters & Branding</p>
                 </div>
 
                 <div onclick="openModal('event')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
                     <div style="width: 100%; aspect-ratio: 16/9; background-color: #333; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:white; overflow:hidden;">
-                        <img src="assets/event_thumb.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Subculture Event</h3>
-                        <span style="font-size: 0.85rem; color: #888;">Event</span>
+                        <img src="assets/event1.jpg" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <p style="font-size: 0.9rem; color: #555; margin: 0;">Planning & Directing</p>
                 </div>
 
                 <div onclick="openModal('etc')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
                     <div style="width: 100%; aspect-ratio: 16/9; background-color: #eee; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:#999; overflow:hidden;">
-                        <img src="assets/etc_thumb.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Archive</h3>
-                        <span style="font-size: 0.85rem; color: #888;">Misc.</span>
+                        <img src="assets/etc1.png" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <p style="font-size: 0.9rem; color: #555; margin: 0;">Sketches & Experiments</p>
                 </div>
@@ -263,13 +245,9 @@
 
     const materialsData = {
         'print': `
-            <h1 style="margin-bottom: 5px; font-size: 2rem;">3D Fabrication</h1>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
-                <strong>Prototyping · Modeling · Printing</strong>
-            </p>
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">Fabrication</h1>
             <div style="width: 100%; height: auto; margin-bottom: 25px;">
-                <img src="assets/3d_1.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
-                <img src="assets/3d_2.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
+                <img src="assets/print2.png" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
             </div>
             <p style="line-height: 1.6; margin-bottom: 15px;">
                 A collection of physical computing prototypes and sculptural objects created via additive manufacturing. Exploring the translation of digital geometry into physical form using PLA and Resin printing techniques.
@@ -277,13 +255,9 @@
         `,
 
         'design': `
-            <h1 style="margin-bottom: 5px; font-size: 2rem;">Graphic Identity</h1>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
-                <strong>Logos · Posters · Branding</strong>
-            </p>
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">Graphics</h1>
             <div style="width: 100%; height: auto; margin-bottom: 25px;">
-                <img src="assets/design_1.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
-                <img src="assets/design_2.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
+                <img src="assets/design2.png" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
             </div>
             <p style="line-height: 1.6; margin-bottom: 15px;">
                 Visual communication works ranging from event posters to startup brand identities. Focus on typography, layout, and the synthesis of complex information into clear visual systems.
@@ -291,13 +265,10 @@
         `,
 
         'event': `
-            <h1 style="margin-bottom: 5px; font-size: 2rem;">Subculture Event</h1>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
-                <strong>Planning · Directing · Community</strong>
-            </p>
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">Event Organization</h1>
             <div style="width: 100%; height: auto; margin-bottom: 25px;">
-                <img src="assets/event_1.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
-                <img src="assets/event_2.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
+                <img src="assets/event2.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
+                <img src="assets/event3.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
             </div>
             <p style="line-height: 1.6; margin-bottom: 15px;">
                 Documenting and organizing niche cultural events that bridge the gap between underground scenes and public spaces. 
@@ -306,13 +277,8 @@
 
         'etc': `
             <h1 style="margin-bottom: 5px; font-size: 2rem;">Archive</h1>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
-                <strong>Sketches · Experiments · Photography</strong>
-            </p>
             <div style="width: 100%; height: auto; margin-bottom: 25px;">
-                <img src="assets/etc_1.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
-                <img src="assets/etc_2.jpg" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
-            </div>
+                <img src="assets/etc2.png" style="width: 100%; height: auto; border-radius: 2px; margin-bottom: 15px; display: block;">
             <p style="line-height: 1.6; margin-bottom: 15px;">
                 Selected sketches, photography, and experimental media that document the creative process outside of formal projects.
             </p>
