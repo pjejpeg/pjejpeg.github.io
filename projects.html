@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jung Eun Park</title>
+    <title>Projects | Jung Eun Park</title>
     
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolyline points='5,80 35,20 65,80 95,20' fill='none' stroke='black' stroke-width='4' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E">
 
@@ -16,30 +16,28 @@
             width: 100vw;
             display: flex;
             overflow: hidden;
-            cursor: none;
+            cursor: none; /* Hide default cursor */
         }
 
+        /* --- NAV ANIMATIONS --- */
         @keyframes unfoldVertical {
             0% { transform: scaleX(0); opacity: 0; }
             10% { opacity: 1; }
             100% { transform: scaleX(1); opacity: 1; }
         }
-
         @keyframes fadeLabels {
             to { opacity: var(--target-opacity); transform: translate(var(--tx), var(--ty)); }
         }
-
         @keyframes softFadeUp {
             0% { opacity: 0; transform: translateY(40px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- CURSOR --- */
         #custom-cursor {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 30px;
-            height: 30px;
+            top: 0; left: 0;
+            width: 30px; height: 30px;
             pointer-events: none;
             z-index: 9999;
             display: grid;
@@ -48,184 +46,123 @@
             transform: translate(-50%, -50%);
         }
         .cursor-cell {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 6px;
-            font-weight: 700;
-            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 6px; font-weight: 700; border-radius: 50%;
         }
         .cell-1 { background: white; color: black; border: 1px solid black; } 
         .cell-2 { background: black; color: white; border: 1px solid white; } 
         .cell-3 { background: black; color: white; border: 1px solid white; } 
         .cell-4 { background: white; color: black; border: 1px solid black; } 
 
+        /* --- LAYOUT --- */
         .left-panel {
-            width: 22vw;
-            height: 100vh;
-            background-color: #000000;
-            color: #ffffff;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            z-index: 10;
+            width: 22vw; height: 100vh;
+            background-color: #000000; color: #ffffff;
+            position: relative; display: flex;
+            justify-content: center; align-items: center;
+            overflow: hidden; z-index: 10;
         }
 
         .nav-molecule {
-            position: relative;
-            width: 40%;
-            height: 70vh; 
+            position: relative; width: 40%; height: 70vh; 
             max-width: 150px;
         }
 
         svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-            overflow: visible;
-            transform-origin: center;
-            transform: scaleX(0); 
+            width: 100%; height: 100%; display: block; overflow: visible;
+            transform-origin: center; transform: scaleX(0); 
             opacity: 0;
             animation: unfoldVertical 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .bond-line {
-            fill: none;
-            stroke: #ffffff;
-            stroke-width: 2;
-            stroke-linecap: square;
-            stroke-linejoin: miter;
-            stroke-miterlimit: 20;
+            fill: none; stroke: #ffffff; stroke-width: 2;
+            stroke-linecap: square; stroke-linejoin: miter; stroke-miterlimit: 20;
         }
 
         .carbon-point {
-            position: absolute;
-            width: 40px; 
-            height: 40px;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-            border-radius: 50%;
-            cursor: none;
+            position: absolute; width: 40px; height: 40px;
+            transform: translate(-50%, -50%); z-index: 20;
+            border-radius: 50%; cursor: none;
         }
 
         .label {
-            position: absolute;
-            font-size: 0.85rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            white-space: nowrap;
-            opacity: 0; 
-            z-index: 10;
-            pointer-events: auto;
-            cursor: none;
+            position: absolute; font-size: 0.85rem; font-weight: 400;
+            text-transform: uppercase; letter-spacing: 2px;
+            white-space: nowrap; opacity: 0; 
+            z-index: 10; pointer-events: auto; cursor: none;
             --target-opacity: 0.5;
-            animation: fadeLabels 0.8s ease forwards;
-            animation-delay: 0.8s;
+            animation: fadeLabels 0.8s ease forwards; animation-delay: 0.8s;
         }
 
-        .label a {
-            text-decoration: none;
-            color: #ffffff;
-            display: block;
-            padding: 5px;
-            cursor: none;
-        }
-
+        .label a { text-decoration: none; color: #ffffff; display: block; padding: 5px; cursor: none; }
         .label:hover { opacity: 1 !important; }
+        .label.active { font-weight: 700; --target-opacity: 1; }
 
-        .label.active { 
-            font-weight: 700; 
-            text-decoration: none;
-            --target-opacity: 1;
-        }
-
+        /* Molecule Positioning */
         #n1 { left: 50%; top: 5%; }
-        #label-name { 
-            left: 50%; top: 5%; 
-            --tx: -50%; --ty: -55px;
-            transform: translate(-50%, -65px); 
-            font-weight: 700;
-            font-size: 1.2rem;
-            animation-delay: 0.5s; 
-        }
-
+        #label-name { left: 50%; top: 5%; --tx: -50%; --ty: -55px; transform: translate(-50%, -65px); font-weight: 700; font-size: 1.2rem; animation-delay: 0.5s; }
         #n2 { left: 80%; top: 35%; }
-        #label-materials { 
-            left: 80%; top: 35%; 
-            --tx: 15px; --ty: -50%;
-            transform: translate(25px, -50%);
-            text-align: left;
-        }
-
+        #label-materials { left: 80%; top: 35%; --tx: 15px; --ty: -50%; transform: translate(25px, -50%); text-align: left; }
         #n3 { left: 20%; top: 65%; }
-        #label-projects { 
-            left: 20%; top: 65%; 
-            --tx: -100%; --ty: -50%;
-            transform: translate(-100%, -50%);
-            margin-left: -15px;
-            text-align: right;
-        }
-
+        #label-projects { left: 20%; top: 65%; --tx: -100%; --ty: -50%; transform: translate(-100%, -50%); margin-left: -15px; text-align: right; }
         #n4 { left: 50%; top: 95%; }
-        #label-about { 
-            left: 50%; top: 95%; 
-            --tx: -50%; --ty: 30px;
-            transform: translate(-50%, 40px);
-            text-align: center;
-        }
+        #label-about { left: 50%; top: 95%; --tx: -50%; --ty: 30px; transform: translate(-50%, 40px); text-align: center; }
 
+        /* --- RIGHT PANEL --- */
         .right-panel {
-            width: 78vw;
-            height: 100vh;
-            background-color: #ffffff;
-            color: #000000;
-            overflow-y: auto;
-            padding: 80px;
+            width: 78vw; height: 100vh;
+            background-color: #ffffff; color: #000000;
+            overflow-y: auto; padding: 80px;
         }
 
         .content-container {
-            max-width: 900px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: softFadeUp 1s ease-out forwards;
-            animation-delay: 0.6s;
+            max-width: 900px; margin: 0 auto;
+            opacity: 0; transform: translateY(40px);
+            animation: softFadeUp 1s ease-out forwards; animation-delay: 0.6s;
         }
 
-        h1 { font-size: 3rem; margin-bottom: 2rem; font-weight: 300; }
-        p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        /* --- MODAL STYLES --- */
+        #project-modal {
+            display: none; /* Hidden by default */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 5000; /* Above everything except cursor */
+            justify-content: center; align-items: center;
+            overflow-y: auto;
+        }
+        
+        #modal-content-box {
+            background: white;
+            width: 90%; max-width: 700px;
+            margin: 50px auto; padding: 50px;
+            position: relative; 
+            border-radius: 2px;
+            cursor: auto; /* Normal cursor inside modal text */
+        }
 
+        /* Responsive */
         @media (max-width: 768px) {
             body { flex-direction: column; cursor: auto; overflow: auto; }
             #custom-cursor { display: none; }
             .left-panel { width: 100vw; height: 300px; }
             .nav-molecule { width: 60vw; height: 200px; }
             .right-panel { width: 100vw; height: auto; padding: 40px; }
-            .label { font-size: 0.8rem; }
-            #label-name { font-size: 1rem; }
-            svg { animation: none; opacity: 1; transform: scaleX(1); }
-            .label { animation: none; opacity: 1; transform: translate(var(--tx), var(--ty)); }
-            .content-container { animation-delay: 0.3s; }
+            svg, .label { animation: none; opacity: 1; transform: scaleX(1); }
+            .label { transform: translate(var(--tx), var(--ty)); }
         }
-svg.static-state {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: scaleX(1) !important;
-}
-.label.static-state {
-    animation: none !important;
-    opacity: var(--target-opacity) !important; 
-    transform: translate(var(--tx), var(--ty)) !important;
-}
+
+        /* Persist Nav State */
+        svg.static-state { animation: none !important; opacity: 1 !important; transform: scaleX(1) !important; }
+        .label.static-state { animation: none !important; opacity: var(--target-opacity) !important; transform: translate(var(--tx), var(--ty)) !important; }
     </style>
 </head>
 <body>
 
     <div id="custom-cursor">
-        <div class="cursor-cell cell-1">가</div> <div class="cursor-cell cell-2">A</div>  <div class="cursor-cell cell-3">あ</div> <div class="cursor-cell cell-4">क</div>  </div>
+        <div class="cursor-cell cell-1">가</div> <div class="cursor-cell cell-2">A</div> 
+        <div class="cursor-cell cell-3">あ</div> <div class="cursor-cell cell-4">क</div> 
+    </div>
 
     <div class="left-panel">
         <div class="nav-molecule">
@@ -234,89 +171,82 @@ svg.static-state {
             </svg>
 
             <a href="index.html" class="carbon-point" id="n1"></a>
-            <div class="label" id="label-name">
-                <a href="index.html">Jung Eun Park</a>
-            </div>
+            <div class="label" id="label-name"><a href="index.html">Jung Eun Park</a></div>
 
             <a href="materials.html" class="carbon-point" id="n2"></a>
-            <div class="label" id="label-materials">
-                <a href="materials.html">Materials</a>
-            </div>
+            <div class="label" id="label-materials"><a href="materials.html">Materials</a></div>
 
             <a href="projects.html" class="carbon-point" id="n3"></a>
-            <div class="label active" id="label-projects">
-                <a href="projects.html">Projects</a>
-            </div>
+            <div class="label active" id="label-projects"><a href="projects.html">Projects</a></div>
 
             <a href="about.html" class="carbon-point" id="n4"></a>
-            <div class="label" id="label-about">
-                <a href="about.html">About</a>
-            </div>
+            <div class="label" id="label-about"><a href="about.html">About</a></div>
         </div>
     </div>
 
     <div class="right-panel">
         <div class="content-container">
-<h1 style="margin-bottom: 3rem; font-weight: 300;">Selected Projects</h1>
+            <h1 style="margin-bottom: 3rem; font-weight: 300;">Selected Projects</h1>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 50px 30px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 50px 30px;">
 
-        <a href="#" style="text-decoration: none; color: inherit; display: block; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
-            
-            <div style="width: 100%; aspect-ratio: 16/9; background-color: #f4f4f4; margin-bottom: 15px; position: relative; border: 1px solid #eee;">
-                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.8rem;">
-                    IMG: Film Still
+                <div onclick="openModal('daelim')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
+                    <div style="width: 100%; aspect-ratio: 16/9; background-color: #333; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:white; overflow:hidden;">
+                        DOCU: Daelim to You
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Daelim to You</h3>
+                        <span style="font-size: 0.85rem; color: #888;">2024</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0;">Short Documentary on Sinophobia</p>
                 </div>
-            </div>
-            
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-                <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
-                    Project Title
-                </h3>
-                <span style="font-size: 0.85rem; color: #888;">2025</span>
-            </div>
-            <p style="font-size: 0.9rem; color: #555; margin: 0;">Documentary Film · 15min</p>
-        </a>
 
-        <a href="#" style="text-decoration: none; color: inherit; display: block; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
-            
-            <div style="width: 100%; aspect-ratio: 16/9; background-color: #f4f4f4; margin-bottom: 15px; position: relative; border: 1px solid #eee;">
-                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.8rem;">
-                    IMG: Installation
+                <div onclick="openModal('ondo')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
+                    <div style="width: 100%; aspect-ratio: 16/9; background-color: #eee; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:#999; overflow:hidden;">
+                        APP: OnDo Interface
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">OnDo</h3>
+                        <span style="font-size: 0.85rem; color: #888;">2023</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0;">Silver Assistant AI Proposal</p>
                 </div>
-            </div>
-            
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-                <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
-                    Project Title
-                </h3>
-                <span style="font-size: 0.85rem; color: #888;">2024</span>
-            </div>
-            <p style="font-size: 0.9rem; color: #555; margin: 0;">Interactive Installation · Processing</p>
-        </a>
 
-        <a href="#" style="text-decoration: none; color: inherit; display: block; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
-            
-            <div style="width: 100%; aspect-ratio: 16/9; background-color: #f4f4f4; margin-bottom: 15px; position: relative; border: 1px solid #eee;">
-                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.8rem;">
-                    IMG: Research
+                <div onclick="openModal('max8')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
+                    <div style="width: 100%; aspect-ratio: 16/9; background-color: #333; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:white; overflow:hidden;">
+                        TECH: Max 8 Patch
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Interactive AV</h3>
+                        <span style="font-size: 0.85rem; color: #888;">2023</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0;">Real-time Generative Launchpad</p>
                 </div>
-            </div>
-            
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-                <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
-                    Project Title
-                </h3>
-                <span style="font-size: 0.85rem; color: #888;">2023</span>
-            </div>
-            <p style="font-size: 0.9rem; color: #555; margin: 0;">Engineering Research · Chitosan</p>
-        </a>
 
+                <div onclick="openModal('nomad')" style="cursor: pointer; opacity: 1; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">
+                    <div style="width: 100%; aspect-ratio: 16/9; background-color: #eee; margin-bottom: 15px; position: relative; border: 1px solid #eee; display:flex; align-items:center; justify-content:center; color:#999; overflow:hidden;">
+                        VR: Nomad Space
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Nomad Space</h3>
+                        <span style="font-size: 0.85rem; color: #888;">2022</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #555; margin: 0;">Metaverse Interactive Play</p>
+                </div>
+
+            </div>
+            </div>
     </div>
+
+    <div id="project-modal">
+        <div id="modal-content-box">
+            <span onclick="closeModal()" style="position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #333; z-index:100;">&times;</span>
+            <div id="modal-body"></div>
         </div>
     </div>
 
     <script>
+    // 1. NAV PERSISTENCE LOGIC
     const referrer = document.referrer;
     const subpages = ['about.html', 'projects.html', 'materials.html'];
     const cameFromSubpage = subpages.some(page => referrer.includes(page));
@@ -326,14 +256,124 @@ svg.static-state {
         if(svg) svg.classList.add('static-state');
         labels.forEach(label => label.classList.add('static-state'));
     }
-        const cursor = document.getElementById('custom-cursor');
-        document.addEventListener('mousemove', (e) => {
-            if(cursor) {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            }
-        });
+
+    // 2. CURSOR LOGIC
+    const cursor = document.getElementById('custom-cursor');
+    document.addEventListener('mousemove', (e) => {
+        if(cursor) {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        }
+    });
+
+    // 3. PROJECT DATA (CONTENT)
+    const projectData = {
+        'daelim': `
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">Daelim to You</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                <strong>2024 · Short Documentary (2' 47")</strong>
+            </p>
+            <div style="background: #eee; width: 100%; height: 300px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: #888;">
+                [Insert Film Still or Video]
+            </div>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                <em>&lt;Daelim to You&gt;</em> is a short documentary film focusing on Sinophobia in Korea. With conservative shift being a rising social problem around the globe, Korea is also not free from the phenomenon. This shift takes the specific form of 'Sinophobia' in the Korean society.
+            </p>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                Sinophobia, a term for xenophobia against Chinese culture and population, closely relates to the worldwide trend of ultranationalism. Daelim district is the largest and best known community of Chinese diaspora in Korea.
+            </p>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                As fear and hatred grows, Daelim district is often depicted as unsafe and crime-ridden. Through the film, I aimed to show how Daelim is no different from and is part of the Seoul city, and how real life breathes everyday in the area. For this, I juxtaposed my own day with one in the district, visiting and becoming part of the scene.
+            </p>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            <p style="font-size: 0.85rem; color: #555;">
+                * Currently under further development through 2026 Winter Documentary Program of Korea National Open University.
+            </p>
+        `,
+
+        'ondo': `
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">OnDo</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                <strong>2023 · AI Application · Excellence Prize Winner</strong>
+            </p>
+            <div style="background: #eee; width: 100%; height: 300px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: #888;">
+                [Insert App UI Mockup]
+            </div>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                OnDo, short for Online Doum(Help), is an AI-driven application model utilizing voice recognition to connect elderly users with local service providers. The project was awarded Excellence Prize by the Mayor of Gangnam-Gu. As a part of the team, I participated in model development and UI/UX design.
+            </p>
+            <h3 style="margin-top: 20px;">The Problem</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                With population aging and technology development both speeding rapidly, senior digital divide is now a clearly visible status quo of the society. Addressing the problem, we designed a platform that connects the elderly in need of assistance to small daily tasks with digital-accustomed population.
+            </p>
+            <h3 style="margin-top: 20px;">The Solution</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                Through case studies of elderly age groups ranging from 60s to 80s, we concluded we must keep the user interface simple, displaying only a single button. The user describes the task verbally, which is recognized and sorted by AI into preset categories.
+            </p>
+        `,
+
+        'max8': `
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">Interactive Audiovisual</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                <strong>2023 · Max 8 · Sonic Arts</strong>
+            </p>
+            <div style="background: #eee; width: 100%; height: 300px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: #888;">
+                [Insert Max Patch or Visual Output]
+            </div>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                For final project of Sonic Arts course, our team built a real-time audiovisual generative launchpad in Max 8. As a part of the team, I built the output section of the model.
+            </p>
+            <h3 style="margin-top: 20px;">Technical Process</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                We started with the objective of involving multisensory experience, delivering a personalized HCI interaction as the output. We received input in form of ASCII code values through PC keyboard enabling users to make use of a simple launchpad.
+            </p>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                From the generated audio input and mouse coordinates, we fetched numeric values that decide fluid movements of the output, such as velocity, pressure, and divergence. Also, we extracted RGBA values from user camera, which then decides the color of the fluid.
+            </p>
+        `,
+
+        'nomad': `
+            <h1 style="margin-bottom: 5px; font-size: 2rem;">Nomad Space</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                <strong>2022 · Metaverse Performance · 'ifland' Platform</strong>
+            </p>
+            <div style="background: #eee; width: 100%; height: 300px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: #888;">
+                [Insert Screenshot of VR Performance]
+            </div>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                For group project of Interactive Storytelling course, our team perfomed a Sci-Fi interactive play within metaverse platform 'ifland'. Leading the team, I scripted the play, directed the performance, filmed real-world video footage and perfomed the play.
+            </p>
+            <h3 style="margin-top: 20px;">Concept</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                The play explores through time and space, transcending both fundamentals and the medium itself by introducing real-world footage to the fictional stage. The audience are guided to board the spaceship, greeted by an annual commemoration of the ceased. Following the footsteps of past and future, the play questions the standing grounds of diaspora and individual.
+            </p>
+        `
+    };
+
+    // 4. MODAL LOGIC
+    function openModal(id) {
+        const modal = document.getElementById('project-modal');
+        const body = document.getElementById('modal-body');
         
+        if (projectData[id]) {
+            body.innerHTML = projectData[id];
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('project-modal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; 
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('project-modal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
     </script>
 
 </body>
